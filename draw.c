@@ -2,7 +2,7 @@
 
 //int tower[4][3];
 
-extern	void draw();
+.extern	void draw();
 
 volatile int pixel_buffer_start; // global variable
 
