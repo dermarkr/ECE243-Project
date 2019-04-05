@@ -1,8 +1,8 @@
 #include "stdlib.h"
 
-//int tower[4][3];
+int tower[10][3];
 
-.extern	void draw();
+void draw();
 
 volatile int pixel_buffer_start; // global variable
 
@@ -130,7 +130,7 @@ void draw()
 	
 	pixel_buffer_start = * pixel_ctrl_ptr;
 	
-	volatile int * tower_ptr = (int *) 0xA0000008;
+	volatile int * tower_ptr = (int *) 0x15c;
 	
 	clear_screen();
 	
@@ -148,38 +148,47 @@ void draw()
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
-/* 	for(i = 0; i < 3; i++){
+	for(i = 0; i < 10; i++){
+		tower[i][0] = *tower_ptr;
+		tower_ptr += 1;
+	}
+	
+	tower_ptr = (int *) 0x180;
+	
+	for(i = 0; i < 10; i++){
+		tower[i][1] = *tower_ptr;
+		tower_ptr += 1;
+	}
+	
+	tower_ptr = (int *) 0x1a8;
+	
+	for(i = 0; i < 10; i++){
+		tower[i][1] = *tower_ptr;
+		tower_ptr += 1;
+	}
+	
+	
+	for(i = 0; i < 3; i++){
 		for(j = 0; j < 4; j++){
 			if(tower[j][i] != 0){
 				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
 			}
 		}
-	} */
+	}
 	
 	
 	//I think this should work. The problem was that we are just accessing a memory location and don't want to change the values.
-	for(i = 0; i < 30; i++){
+/* 	for(i = 0; i < 30; i++){
 		int j = i % 10;
 		if(tower[i] != 0){
 			draw_rectangle(79 * ((i/10)+1) - width_mult*tower[i], 239 - (4-j)*disk_height, width_mult*(2* tower[i])+ peg_width, disk_height, 0x0300 * tower[i]+ 0x1000 * tower[i] + 0x3 * tower[i]);
 		}
-	}
+	} */
 }
 
 // code for subroutines (not shown)
 
-/* int main(void){
-	//initialize tower starting conditions 
- 	int local_tower[4][3] = { {0, 0, 0},
-			{1, 0, 0},
-			{2, 0, 0},
-				{3, 0, 0}}; 
-	int i;
-	int j;
-	for (i = 0; i < 4; i++){
-		for (j = 0; j < 3; j++){
-			tower[i][j] = local_tower[i][j];
-		}
-	}
-	draw();
-} */
+int main(void){
+
+	_start();
+}

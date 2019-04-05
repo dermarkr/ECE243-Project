@@ -13,6 +13,7 @@
         <source_files>
             <source_file filepath="true">draw.c</source_file>
             <source_file filepath="true">address_map_arm.h</source_file>
+            <source_file filepath="true">polling.s</source_file>
         </source_files>
         <options>
             <compiler_flags>-g -O1</compiler_flags>

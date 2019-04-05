@@ -1,239 +1,273 @@
 
-C:/Users/Bob/Desktop/ECE243_Computer_Organization/Labs/ECE243-Project/polling.axf:     file format elf32-littlearm
+W:/ECE243_Computer_Organization/Labs/ECE243-Project-master/ECE243-Project-master/polling.axf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
 
 00000000 <__cs3_interrupt_vector>:
-
-
-		
-//Need to draw to game when to program starts		
-
-_start:			LDR		R0, =0				//assigns the location the PB presses are stored
-   0:	e3a00000 	mov	r0, #0
-				MOV 	R4, #16
-   4:	e3a04010 	mov	r4, #16
-				MOV 	R3, #0
-   8:	e3a03000 	mov	r3, #0
-				MOV		R1, #0				//Populating Tower
-   c:	e3a01000 	mov	r1, #0
-				MOV		R2, #1
-  10:	e3a02001 	mov	r2, #1
-
-00000014 <BUILDTOWER>:
-
-BUILDTOWER:		
-				STR		R1, [R3]
-  14:	e5831000 	str	r1, [r3]
-				ADD		R3, R4
-  18:	e0833004 	add	r3, r3, r4
-				ADD		R1, R2
-  1c:	e0811002 	add	r1, r1, r2
-				CMP		R1, #2
-  20:	e3510002 	cmp	r1, #2
-				BEQ		FILLEMPTY
-  24:	0a000000 	beq	2c <FILLEMPTY>
-				B		BUILDTOWER
-  28:	eafffff9 	b	14 <BUILDTOWER>
-
-0000002c <FILLEMPTY>:
-				
-				
-
-FILLEMPTY:		
-				STR		R0, [R3]
-  2c:	e5830000 	str	r0, [r3]
-				ADD		R3, R4
-  30:	e0833004 	add	r3, r3, r4
-				ADD		R1, R2
-  34:	e0811002 	add	r1, r1, r2
-				CMP		R1, #7
-  38:	e3510007 	cmp	r1, #7
-				BLT		FILLEMPTY
-  3c:	bafffffa 	blt	2c <FILLEMPTY>
-
-00000040 <POLLING_START>:
+				// CMP		R3, #480
+				// BLT		FILLEMPTY
 
 				
 				
 POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
-  40:	e3a00e15 	mov	r0, #336	; 0x150
-				LDR		R1, =0xFF200050		//PB press location
-  44:	e59f1108 	ldr	r1, [pc, #264]	; 154 <BUTTONS+0x4>
+   0:	e3a00f55 	mov	r0, #340	; 0x154
+				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
+   4:	e59f11c8 	ldr	r1, [pc, #456]	; 1d4 <PUSH_BUTTON_LOCATION+0x4>
+				LDR 	R1, [R1]
+   8:	e5911000 	ldr	r1, [r1]
 
-00000048 <POLLC1>:
+0000000c <POLLC1>:
 			
 POLLC1:			LDRB	R2, [R1]	//Loads PB values
-  48:	e5d12000 	ldrb	r2, [r1]
+   c:	e5d12000 	ldrb	r2, [r1]
 				CMP		R2, #0		//Checks if PB pressed
-  4c:	e3520000 	cmp	r2, #0
+  10:	e3520000 	cmp	r2, #0
 				BEQ		POLLC1
-  50:	0afffffc 	beq	48 <POLLC1>
+  14:	0afffffc 	beq	c <POLLC1>
 				CMP		R2, #0b1000 //checks if PB was valid
-  54:	e3520008 	cmp	r2, #8
+  18:	e3520008 	cmp	r2, #8
 				BEQ		POLLC1
-  58:	0afffffa 	beq	48 <POLLC1>
+  1c:	0afffffa 	beq	c <POLLC1>
 				STRB	R2, [R0]	//if PB pressed stored in memory
-  5c:	e5c02000 	strb	r2, [r0]
+  20:	e5c02000 	strb	r2, [r0]
 				B		WAITPOLLC1		//goes to check for second press
-  60:	eaffffff 	b	64 <WAITPOLLC1>
+  24:	eaffffff 	b	28 <WAITPOLLC1>
 
-00000064 <WAITPOLLC1>:
+00000028 <WAITPOLLC1>:
 				
 WAITPOLLC1:		LDRB	R4, [R1]
-  64:	e5d14000 	ldrb	r4, [r1]
+  28:	e5d14000 	ldrb	r4, [r1]
 				CMP		R4, #0
-  68:	e3540000 	cmp	r4, #0
+  2c:	e3540000 	cmp	r4, #0
 				BEQ		POLLC2
-  6c:	0a000000 	beq	74 <POLLC2>
+  30:	0a000000 	beq	38 <POLLC2>
 				B		WAITPOLLC1
-  70:	eafffffb 	b	64 <WAITPOLLC1>
+  34:	eafffffb 	b	28 <WAITPOLLC1>
 
-00000074 <POLLC2>:
+00000038 <POLLC2>:
 			
 POLLC2:			LDRB	R3, [R1]	//Loads PB values
-  74:	e5d13000 	ldrb	r3, [r1]
+  38:	e5d13000 	ldrb	r3, [r1]
 				CMP		R3, #0		//Checks if PB pressed
-  78:	e3530000 	cmp	r3, #0
+  3c:	e3530000 	cmp	r3, #0
 				BEQ		POLLC2
-  7c:	0afffffc 	beq	74 <POLLC2>
+  40:	0afffffc 	beq	38 <POLLC2>
 				CMP		R3, #0b1000 //checks if PB was valid
-  80:	e3530008 	cmp	r3, #8
+  44:	e3530008 	cmp	r3, #8
 				BEQ		POLLC2
-  84:	0afffffa 	beq	74 <POLLC2>
+  48:	0afffffa 	beq	38 <POLLC2>
 				STRB	R3, [R0, #8]	//if PB pressed stored in memory
-  88:	e5c03008 	strb	r3, [r0, #8]
+  4c:	e5c03008 	strb	r3, [r0, #8]
 				B		WAITPOLLC2		//goes to logic functions
-  8c:	eaffffff 	b	90 <WAITPOLLC2>
+  50:	eaffffff 	b	54 <WAITPOLLC2>
 
-00000090 <WAITPOLLC2>:
+00000054 <WAITPOLLC2>:
 				
 WAITPOLLC2:		LDRB	R4, [R1]
-  90:	e5d14000 	ldrb	r4, [r1]
+  54:	e5d14000 	ldrb	r4, [r1]
 				CMP		R4, #0
-  94:	e3540000 	cmp	r4, #0
+  58:	e3540000 	cmp	r4, #0
 				BEQ		LOGIC_START
-  98:	0a000000 	beq	a0 <LOGIC_START>
+  5c:	0a000000 	beq	64 <LOGIC_START>
 				B		WAITPOLLC2
-  9c:	eafffffb 	b	90 <WAITPOLLC2>
+  60:	eafffffb 	b	54 <WAITPOLLC2>
 
-000000a0 <LOGIC_START>:
-			
-			//Logic function written assuming max disk count is 10
+00000064 <LOGIC_START>:
 
 
 LOGIC_START:	
-				MOV		R10, #32
-  a0:	e3a0a020 	mov	r10, #32
+				//MOV		R10, #160
 
 				CMP		R2, #0b0001		//assigns R2 to the key number by checking value against masks
-  a4:	e3520001 	cmp	r2, #1
+  64:	e3520001 	cmp	r2, #1
 				MOVEQ	R2, #0
-  a8:	03a02000 	moveq	r2, #0
+  68:	03a02000 	moveq	r2, #0
 				CMP		R2, #0b0010
-  ac:	e3520002 	cmp	r2, #2
+  6c:	e3520002 	cmp	r2, #2
 				MOVEQ	R2, #1
-  b0:	03a02001 	moveq	r2, #1
+  70:	03a02001 	moveq	r2, #1
 				CMP		R2, #0b0100
-  b4:	e3520004 	cmp	r2, #4
+  74:	e3520004 	cmp	r2, #4
 				MOVEQ	R2, #2
-  b8:	03a02002 	moveq	r2, #2
+  78:	03a02002 	moveq	r2, #2
 				
-				MUL 	R7, R2, R10		//Multiplies by 40 as that is the length of one row of the tower Array
-  bc:	e0070a92 	mul	r7, r2, r10
+				//MUL 	R7, R2, R10		//Multiplies by 160 as that is the length of one row of the tower Array
+				
+				LDR R10, =COLUMN0
+  7c:	e59fa154 	ldr	r10, [pc, #340]	; 1d8 <PUSH_BUTTON_LOCATION+0x8>
+				CMP		R2, #0
+  80:	e3520000 	cmp	r2, #0
+				MOVEQ	R7, R10
+  84:	01a0700a 	moveq	r7, r10
+				
+				LDR R10, =COLUMN1
+  88:	e59fa14c 	ldr	r10, [pc, #332]	; 1dc <PUSH_BUTTON_LOCATION+0xc>
+				CMP		R2, #1
+  8c:	e3520001 	cmp	r2, #1
+				MOVEQ	R7, R10
+  90:	01a0700a 	moveq	r7, r10
+				
+				LDR R10, =COLUMN2
+  94:	e59fa144 	ldr	r10, [pc, #324]	; 1e0 <PUSH_BUTTON_LOCATION+0x10>
+				CMP		R2, #2
+  98:	e3520002 	cmp	r2, #2
+				MOVEQ	R7, R10
+  9c:	01a0700a 	moveq	r7, r10
 				
 				CMP		R3, #0b0001		//assigns R3 to the key number by checking value against masks
-  c0:	e3530001 	cmp	r3, #1
+  a0:	e3530001 	cmp	r3, #1
 				MOVEQ	R3, #0
-  c4:	03a03000 	moveq	r3, #0
+  a4:	03a03000 	moveq	r3, #0
 				CMP		R3, #0b0010
-  c8:	e3530002 	cmp	r3, #2
+  a8:	e3530002 	cmp	r3, #2
 				MOVEQ	R3, #1
-  cc:	03a03001 	moveq	r3, #1
+  ac:	03a03001 	moveq	r3, #1
 				CMP		R3, #0b0100
-  d0:	e3530004 	cmp	r3, #4
+  b0:	e3530004 	cmp	r3, #4
 				MOVEQ	R3, #2
-  d4:	03a03002 	moveq	r3, #2
+  b4:	03a03002 	moveq	r3, #2
 				
-				MUL		R8, R3, R10			//Multiplies by 40 as that is the length of one row of the tower Array
-  d8:	e0080a93 	mul	r8, r3, r10
+				//MUL		R8, R3, R10			//Multiplies by 40 as that is the length of one row of the tower Array
 
-				ADD		R6, R2, #1		//setting limit to column
-  dc:	e2826001 	add	r6, r2, #1
-				MUL		R9, R6, R10
-  e0:	e0090a96 	mul	r9, r6, r10
-				ADD		R9, #16
-  e4:	e2899010 	add	r9, r9, #16
+				LDR R10, =COLUMN0
+  b8:	e59fa118 	ldr	r10, [pc, #280]	; 1d8 <PUSH_BUTTON_LOCATION+0x8>
+				CMP		R3, #0
+  bc:	e3530000 	cmp	r3, #0
+				MOVEQ	R8, R10
+  c0:	01a0800a 	moveq	r8, r10
+				
+				LDR R10, =COLUMN1
+  c4:	e59fa110 	ldr	r10, [pc, #272]	; 1dc <PUSH_BUTTON_LOCATION+0xc>
+				CMP		R3, #1
+  c8:	e3530001 	cmp	r3, #1
+				MOVEQ	R8, R10
+  cc:	01a0800a 	moveq	r8, r10
+				
+				LDR R10, =COLUMN2
+  d0:	e59fa108 	ldr	r10, [pc, #264]	; 1e0 <PUSH_BUTTON_LOCATION+0x10>
+				CMP		R3, #2
+  d4:	e3530002 	cmp	r3, #2
+				MOVEQ	R8, R10
+  d8:	01a0800a 	moveq	r8, r10
+				
+				
+				ADD		R9, R7, #40
+  dc:	e2879028 	add	r9, r7, #40	; 0x28
 
-000000e8 <CHECK_TOP_C1>:
+000000e0 <CHECK_TOP_C1>:
+				//ADD		R6, R2, #1		//setting limit to column
+				//MUL		R9, R6, R10		//for example, if r2 was column 0, then r6 = 1, r9 = 1 * 160 = 160 = the start address of
+											//the second column
+				//ADD		R9, #16		//potentially incorrect offset
 CHECK_TOP_C1:	
 				CMP		R7, R9			//checking if end of column was reached
-  e8:	e1570009 	cmp	r7, r9
+  e0:	e1570009 	cmp	r7, r9
 				BGE		POLLING_START	//it end of column reached buttom press was invalid and returning to polling
-  ec:	aaffffd3 	bge	40 <POLLING_START>
+  e4:	aaffffc5 	bge	0 <__cs3_interrupt_vector>
 				LDR		R4, [R7]	//checking disk value 
-  f0:	e5974000 	ldr	r4, [r7]
-				ADD		R7, #16
-  f4:	e2877010 	add	r7, r7, #16
+  e8:	e5974000 	ldr	r4, [r7]
+				ADD		R7, #4
+  ec:	e2877004 	add	r7, r7, #4
 				CMP		R4, #0			//if disk value is not zero then that is the top disk on the column
-  f8:	e3540000 	cmp	r4, #0
+  f0:	e3540000 	cmp	r4, #0
 				BEQ		CHECK_TOP_C1	//if disk value is zero cycles throught checktop again for the next memory location
-  fc:	0afffff9 	beq	e8 <CHECK_TOP_C1>
-				SUB		R7, #16
- 100:	e2477010 	sub	r7, r7, #16
+  f4:	0afffff9 	beq	e0 <CHECK_TOP_C1>
+				SUB		R7, #4
+  f8:	e2477004 	sub	r7, r7, #4
 				
-				ADD		R6, R3, #1		//setting limit to column
- 104:	e2836001 	add	r6, r3, #1
-				MUL		R9, R6, R10
- 108:	e0090a96 	mul	r9, r6, r10
-				ADD		R9, #16
- 10c:	e2899010 	add	r9, r9, #16
+				
+				ADD		R9, R8, #40
+  fc:	e2889028 	add	r9, r8, #40	; 0x28
 
-00000110 <CHECK_TOP_C2>:
+00000100 <CHECK_TOP_C2>:
+											//the second column
+				//ADD		R9, #16		//potentially incorrect offset
+				
 				
 CHECK_TOP_C2:	
 				CMP		R8, R9			//checking if end of column was reached
- 110:	e1580009 	cmp	r8, r9
+ 100:	e1580009 	cmp	r8, r9
 				BGE		C2_EMPTY		//if so going to C2_EMPTY to set disk size to 0
- 114:	aa00000a 	bge	144 <C2_EMPTY>
+ 104:	aa00000c 	bge	13c <C2_EMPTY>
 				LDR		R5, [R8]	//checking disk value 
- 118:	e5985000 	ldr	r5, [r8]
-				ADD		R8, #16
- 11c:	e2888010 	add	r8, r8, #16
+ 108:	e5985000 	ldr	r5, [r8]
+				ADD		R8, #4
+ 10c:	e2888004 	add	r8, r8, #4
 				CMP		R5, #0			//if disk value is not zero then that is the top disk on the column
- 120:	e3550000 	cmp	r5, #0
+ 110:	e3550000 	cmp	r5, #0
 				BEQ		CHECK_TOP_C2	//if disk value is zero cycles throught checktop again for the next memory location
- 124:	0afffff9 	beq	110 <CHECK_TOP_C2>
+ 114:	0afffff9 	beq	100 <CHECK_TOP_C2>
 
-00000128 <CHECK_LEGAL>:
+00000118 <CHECK_LEGAL>:
 				
-
+//the following subroutine checks legality of the move that the user requested
 CHECK_LEGAL:	MOV		R1, #0
- 128:	e3a01000 	mov	r1, #0
+ 118:	e3a01000 	mov	r1, #0
+				CMP		R5, #0	
+ 11c:	e3550000 	cmp	r5, #0
+				BEQ		MOVING_EMPTY
+ 120:	0a000007 	beq	144 <MOVING_EMPTY>
+				
 				CMP		R4, R5			//checks if the disk being moved is smaller than the one its being moved on top of
- 12c:	e1540005 	cmp	r4, r5
+ 124:	e1540005 	cmp	r4, r5
 				BLT		POLLING_START	//if not the move is invalid and it just back to polling
- 130:	baffffc2 	blt	40 <POLLING_START>
+ 128:	baffffb4 	blt	0 <__cs3_interrupt_vector>
 				
 				STR		R1, [R7]		//moving disks
- 134:	e5871000 	str	r1, [r7]
-				SUB		R8, #16
- 138:	e2488010 	sub	r8, r8, #16
+ 12c:	e5871000 	str	r1, [r7]
+				SUB		R8, #4
+ 130:	e2488004 	sub	r8, r8, #4
 				STR		R4, [R8]
- 13c:	e5884000 	str	r4, [r8]
+ 134:	e5884000 	str	r4, [r8]
 				B		POLLING_START			//drawing new positions to screen
- 140:	eaffffbe 	b	40 <POLLING_START>
+ 138:	eaffffb0 	b	0 <__cs3_interrupt_vector>
 
-00000144 <C2_EMPTY>:
+0000013c <C2_EMPTY>:
 				
-C2_EMPTY:		MOV		R5, #0
- 144:	e3a05000 	mov	r5, #0
-				SUB		R8, R8, #16
- 148:	e2488010 	sub	r8, r8, #16
+//the following subroutine does (unnecessary) operations when a column that is being moved to is empty				
+C2_EMPTY:		MOV		R5, #0			//ensuring a value is stored in r5(for legality)
+ 13c:	e3a05000 	mov	r5, #0
+				//SUB		R8, R8, #16		//potentially incorrect thing
 				B		CHECK_LEGAL
- 14c:	eafffff5 	b	128 <CHECK_LEGAL>
+ 140:	eafffff4 	b	118 <CHECK_LEGAL>
 
-00000150 <BUTTONS>:
- 150:	00000000 	.word	0x00000000
- 154:	ff200050 	.word	0xff200050
+00000144 <MOVING_EMPTY>:
+
+//the following subroutine moves a disk into an empty column
+MOVING_EMPTY:	SUB		R8, #4
+ 144:	e2488004 	sub	r8, r8, #4
+				STR		R4, [R8]
+ 148:	e5884000 	str	r4, [r8]
+				STR		R5, [R7]
+ 14c:	e5875000 	str	r5, [r7]
+				B		POLLING_START
+ 150:	eaffffaa 	b	0 <__cs3_interrupt_vector>
+
+00000154 <BUTTONS>:
+ 154:	00000000 	.word	0x00000000
+
+00000158 <COLUMN0>:
+ 158:	00000001 	.word	0x00000001
+ 15c:	00000002 	.word	0x00000002
+ 160:	00000003 	.word	0x00000003
+ 164:	00000004 	.word	0x00000004
+ 168:	00000005 	.word	0x00000005
+ 16c:	00000006 	.word	0x00000006
+ 170:	00000007 	.word	0x00000007
+ 174:	00000008 	.word	0x00000008
+ 178:	00000009 	.word	0x00000009
+ 17c:	0000000a 	.word	0x0000000a
+
+00000180 <COLUMN1>:
+	...
+
+000001a8 <COLUMN2>:
+	...
+
+000001d0 <PUSH_BUTTON_LOCATION>:
+ 1d0:	ff200050 	.word	0xff200050
+ 1d4:	000001d0 	.word	0x000001d0
+ 1d8:	00000158 	.word	0x00000158
+ 1dc:	00000180 	.word	0x00000180
+ 1e0:	000001a8 	.word	0x000001a8

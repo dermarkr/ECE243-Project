@@ -1,5 +1,5 @@
 
-D:/ECE243_Computer_Organization/Labs/Project/draw.axf:     file format elf32-littlearm
+W:/ECE243_Computer_Organization/Labs/ECE243-Project-master/ECE243-Project-master/draw.axf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
@@ -7,19 +7,19 @@ Disassembly of section .text:
 00000000 <__cs3_interrupt_vector>:
    0:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
   10:	18 f0 9f e5 18 f0 9f e5 18 f0 9f e5 18 f0 9f e5     ................
-  20:	40 00 00 00 54 09 00 00 58 09 00 00 5c 09 00 00     @...T...X...\...
-  30:	60 09 00 00 50 09 00 00 64 09 00 00 68 09 00 00     `...P...d...h...
+  20:	40 00 00 00 24 0b 00 00 28 0b 00 00 2c 0b 00 00     @...$...(...,...
+  30:	30 0b 00 00 20 0b 00 00 34 0b 00 00 38 0b 00 00     0... ...4...8...
 
 00000040 <__cs3_reset>:
   40:	ea000026 	b	e0 <__cs3_start_asm_sim>
 
 00000044 <__cs3_start_c>:
-  44:	e59f608c 	ldr	r6, [pc, #140]	; d8 <__cs3_region_zero_size_ram+0x88>
+  44:	e59f608c 	ldr	r6, [pc, #140]	; d8 <__cs3_region_zero_size_ram+0x40>
   48:	e3560000 	cmp	r6, #0
   4c:	e92d4080 	push	{r7, lr}
   50:	e2466001 	sub	r6, r6, #1
-  54:	0a00001e 	beq	d4 <__cs3_region_zero_size_ram+0x84>
-  58:	e59f507c 	ldr	r5, [pc, #124]	; dc <__cs3_region_zero_size_ram+0x8c>
+  54:	0a00001e 	beq	d4 <__cs3_region_zero_size_ram+0x3c>
+  58:	e59f507c 	ldr	r5, [pc, #124]	; dc <__cs3_region_zero_size_ram+0x44>
   5c:	e3a00000 	mov	r0, #0
   60:	e3a01000 	mov	r1, #0
   64:	e515200c 	ldr	r2, [r5, #-12]
@@ -27,9 +27,9 @@ Disassembly of section .text:
   6c:	e5154008 	ldr	r4, [r5, #-8]
   70:	e15e0002 	cmp	lr, r2
   74:	00822004 	addeq	r2, r2, r4
-  78:	0a000009 	beq	a4 <__cs3_region_zero_size_ram+0x54>
+  78:	0a000009 	beq	a4 <__cs3_region_zero_size_ram+0xc>
   7c:	e3540000 	cmp	r4, #0
-  80:	0a000007 	beq	a4 <__cs3_region_zero_size_ram+0x54>
+  80:	0a000007 	beq	a4 <__cs3_region_zero_size_ram+0xc>
   84:	e1a07002 	mov	r7, r2
   88:	e1a0c002 	mov	r12, r2
   8c:	e8be000c 	ldm	lr!, {r2, r3}
@@ -37,22 +37,22 @@ Disassembly of section .text:
   94:	e067300c 	rsb	r3, r7, r12
   98:	e1540003 	cmp	r4, r3
   9c:	e1a0200c 	mov	r2, r12
-  a0:	1afffff9 	bne	8c <__cs3_region_zero_size_ram+0x3c>
+  a0:	1afffff9 	bne	8c <__cs3_start_c+0x48>
   a4:	e515e004 	ldr	lr, [r5, #-4]
   a8:	e35e0000 	cmp	lr, #0
   ac:	11a03002 	movne	r3, r2
-  b0:	0a000003 	beq	c4 <__cs3_region_zero_size_ram+0x74>
+  b0:	0a000003 	beq	c4 <__cs3_region_zero_size_ram+0x2c>
   b4:	e8a30003 	stmia	r3!, {r0, r1}
   b8:	e062c003 	rsb	r12, r2, r3
   bc:	e15e000c 	cmp	lr, r12
-  c0:	1afffffb 	bne	b4 <__cs3_region_zero_size_ram+0x64>
+  c0:	1afffffb 	bne	b4 <__cs3_region_zero_size_ram+0x1c>
   c4:	e2466001 	sub	r6, r6, #1
   c8:	e3760001 	cmn	r6, #1
   cc:	e2855014 	add	r5, r5, #20
-  d0:	1affffe3 	bne	64 <__cs3_region_zero_size_ram+0x14>
-  d4:	eb000204 	bl	8ec <__cs3_premain>
+  d0:	1affffe3 	bne	64 <__cs3_start_c+0x20>
+  d4:	eb000278 	bl	abc <__cs3_premain>
   d8:	00000001 	.word	0x00000001
-  dc:	00000a80 	.word	0x00000a80
+  dc:	00000c20 	.word	0x00000c20
 
 000000e0 <__cs3_start_asm_sim>:
   e0:	e28f103c 	add	r1, pc, #60	; 0x3c
@@ -71,991 +71,1278 @@ Disassembly of section .text:
  114:	15810000 	strne	r0, [r1]
  118:	eaffffc9 	b	44 <__cs3_start_c>
  11c:	3ffffff8 	.word	0x3ffffff8
- 120:	00000eb8 	.word	0x00000eb8
+ 120:	00001058 	.word	0x00001058
 
 00000124 <__cs3_heap_start_ptr>:
- 124:	00000f10 	.word	0x00000f10
+ 124:	000010f8 	.word	0x000010f8
 
-00000128 <_start>:
- 128:	e51fd000 	ldr	sp, [pc, #-0]	; 130 <_start+0x8>
- 12c:	eaffffc4 	b	44 <__cs3_start_c>
- 130:	3ffffff8 	.word	0x3ffffff8
+00000128 <deregister_tm_clones>:
+ 128:	e92d4008 	push	{r3, lr}
+ 12c:	e59f002c 	ldr	r0, [pc, #44]	; 160 <deregister_tm_clones+0x38>
+ 130:	e59f302c 	ldr	r3, [pc, #44]	; 164 <deregister_tm_clones+0x3c>
+ 134:	e0603003 	rsb	r3, r0, r3
+ 138:	e3530006 	cmp	r3, #6
+ 13c:	8a000001 	bhi	148 <deregister_tm_clones+0x20>
+ 140:	e8bd4008 	pop	{r3, lr}
+ 144:	e12fff1e 	bx	lr
+ 148:	e59f3018 	ldr	r3, [pc, #24]	; 168 <deregister_tm_clones+0x40>
+ 14c:	e3530000 	cmp	r3, #0
+ 150:	0afffffa 	beq	140 <deregister_tm_clones+0x18>
+ 154:	e1a0e00f 	mov	lr, pc
+ 158:	e12fff13 	bx	r3
+ 15c:	eafffff7 	b	140 <deregister_tm_clones+0x18>
+ 160:	00001060 	.word	0x00001060
+ 164:	00001063 	.word	0x00001063
+ 168:	00000000 	.word	0x00000000
 
-00000134 <deregister_tm_clones>:
- 134:	e92d4008 	push	{r3, lr}
- 138:	e59f002c 	ldr	r0, [pc, #44]	; 16c <deregister_tm_clones+0x38>
- 13c:	e59f302c 	ldr	r3, [pc, #44]	; 170 <deregister_tm_clones+0x3c>
- 140:	e0603003 	rsb	r3, r0, r3
- 144:	e3530006 	cmp	r3, #6
- 148:	8a000001 	bhi	154 <deregister_tm_clones+0x20>
- 14c:	e8bd4008 	pop	{r3, lr}
- 150:	e12fff1e 	bx	lr
- 154:	e59f3018 	ldr	r3, [pc, #24]	; 174 <deregister_tm_clones+0x40>
- 158:	e3530000 	cmp	r3, #0
- 15c:	0afffffa 	beq	14c <deregister_tm_clones+0x18>
- 160:	e1a0e00f 	mov	lr, pc
- 164:	e12fff13 	bx	r3
- 168:	eafffff7 	b	14c <deregister_tm_clones+0x18>
- 16c:	00000ec0 	.word	0x00000ec0
- 170:	00000ec3 	.word	0x00000ec3
- 174:	00000000 	.word	0x00000000
+0000016c <register_tm_clones>:
+ 16c:	e92d4008 	push	{r3, lr}
+ 170:	e59f0034 	ldr	r0, [pc, #52]	; 1ac <register_tm_clones+0x40>
+ 174:	e59f3034 	ldr	r3, [pc, #52]	; 1b0 <register_tm_clones+0x44>
+ 178:	e0603003 	rsb	r3, r0, r3
+ 17c:	e1a03143 	asr	r3, r3, #2
+ 180:	e0833fa3 	add	r3, r3, r3, lsr #31
+ 184:	e1b010c3 	asrs	r1, r3, #1
+ 188:	1a000001 	bne	194 <register_tm_clones+0x28>
+ 18c:	e8bd4008 	pop	{r3, lr}
+ 190:	e12fff1e 	bx	lr
+ 194:	e59f2018 	ldr	r2, [pc, #24]	; 1b4 <register_tm_clones+0x48>
+ 198:	e3520000 	cmp	r2, #0
+ 19c:	0afffffa 	beq	18c <register_tm_clones+0x20>
+ 1a0:	e1a0e00f 	mov	lr, pc
+ 1a4:	e12fff12 	bx	r2
+ 1a8:	eafffff7 	b	18c <register_tm_clones+0x20>
+ 1ac:	00001060 	.word	0x00001060
+ 1b0:	00001060 	.word	0x00001060
+ 1b4:	00000000 	.word	0x00000000
 
-00000178 <register_tm_clones>:
- 178:	e92d4008 	push	{r3, lr}
- 17c:	e59f0034 	ldr	r0, [pc, #52]	; 1b8 <register_tm_clones+0x40>
- 180:	e59f3034 	ldr	r3, [pc, #52]	; 1bc <register_tm_clones+0x44>
- 184:	e0603003 	rsb	r3, r0, r3
- 188:	e1a03143 	asr	r3, r3, #2
- 18c:	e0833fa3 	add	r3, r3, r3, lsr #31
- 190:	e1b010c3 	asrs	r1, r3, #1
- 194:	1a000001 	bne	1a0 <register_tm_clones+0x28>
- 198:	e8bd4008 	pop	{r3, lr}
- 19c:	e12fff1e 	bx	lr
- 1a0:	e59f2018 	ldr	r2, [pc, #24]	; 1c0 <register_tm_clones+0x48>
- 1a4:	e3520000 	cmp	r2, #0
- 1a8:	0afffffa 	beq	198 <register_tm_clones+0x20>
- 1ac:	e1a0e00f 	mov	lr, pc
- 1b0:	e12fff12 	bx	r2
- 1b4:	eafffff7 	b	198 <register_tm_clones+0x20>
- 1b8:	00000ec0 	.word	0x00000ec0
- 1bc:	00000ec0 	.word	0x00000ec0
- 1c0:	00000000 	.word	0x00000000
+000001b8 <__do_global_dtors_aux>:
+ 1b8:	e92d4010 	push	{r4, lr}
+ 1bc:	e59f402c 	ldr	r4, [pc, #44]	; 1f0 <__do_global_dtors_aux+0x38>
+ 1c0:	e5d43000 	ldrb	r3, [r4]
+ 1c4:	e3530000 	cmp	r3, #0
+ 1c8:	1a000006 	bne	1e8 <__do_global_dtors_aux+0x30>
+ 1cc:	ebffffd5 	bl	128 <deregister_tm_clones>
+ 1d0:	e59f301c 	ldr	r3, [pc, #28]	; 1f4 <__do_global_dtors_aux+0x3c>
+ 1d4:	e3530000 	cmp	r3, #0
+ 1d8:	159f0018 	ldrne	r0, [pc, #24]	; 1f8 <__do_global_dtors_aux+0x40>
+ 1dc:	1320f000 	nopne	{0}
+ 1e0:	e3a03001 	mov	r3, #1
+ 1e4:	e5c43000 	strb	r3, [r4]
+ 1e8:	e8bd4010 	pop	{r4, lr}
+ 1ec:	e12fff1e 	bx	lr
+ 1f0:	00001060 	.word	0x00001060
+ 1f4:	00000000 	.word	0x00000000
+ 1f8:	00000bc4 	.word	0x00000bc4
 
-000001c4 <__do_global_dtors_aux>:
- 1c4:	e92d4010 	push	{r4, lr}
- 1c8:	e59f402c 	ldr	r4, [pc, #44]	; 1fc <__do_global_dtors_aux+0x38>
- 1cc:	e5d43000 	ldrb	r3, [r4]
- 1d0:	e3530000 	cmp	r3, #0
- 1d4:	1a000006 	bne	1f4 <__do_global_dtors_aux+0x30>
- 1d8:	ebffffd5 	bl	134 <deregister_tm_clones>
- 1dc:	e59f301c 	ldr	r3, [pc, #28]	; 200 <__do_global_dtors_aux+0x3c>
- 1e0:	e3530000 	cmp	r3, #0
- 1e4:	159f0018 	ldrne	r0, [pc, #24]	; 204 <__do_global_dtors_aux+0x40>
- 1e8:	1320f000 	nopne	{0}
- 1ec:	e3a03001 	mov	r3, #1
- 1f0:	e5c43000 	strb	r3, [r4]
- 1f4:	e8bd4010 	pop	{r4, lr}
- 1f8:	e12fff1e 	bx	lr
- 1fc:	00000ec0 	.word	0x00000ec0
- 200:	00000000 	.word	0x00000000
- 204:	000009f4 	.word	0x000009f4
-
-00000208 <frame_dummy>:
- 208:	e92d4008 	push	{r3, lr}
- 20c:	e59f3034 	ldr	r3, [pc, #52]	; 248 <frame_dummy+0x40>
- 210:	e3530000 	cmp	r3, #0
- 214:	159f0030 	ldrne	r0, [pc, #48]	; 24c <frame_dummy+0x44>
- 218:	159f1030 	ldrne	r1, [pc, #48]	; 250 <frame_dummy+0x48>
- 21c:	1320f000 	nopne	{0}
- 220:	e59f002c 	ldr	r0, [pc, #44]	; 254 <frame_dummy+0x4c>
- 224:	e5903000 	ldr	r3, [r0]
+000001fc <frame_dummy>:
+ 1fc:	e92d4008 	push	{r3, lr}
+ 200:	e59f3034 	ldr	r3, [pc, #52]	; 23c <frame_dummy+0x40>
+ 204:	e3530000 	cmp	r3, #0
+ 208:	159f0030 	ldrne	r0, [pc, #48]	; 240 <frame_dummy+0x44>
+ 20c:	159f1030 	ldrne	r1, [pc, #48]	; 244 <frame_dummy+0x48>
+ 210:	1320f000 	nopne	{0}
+ 214:	e59f002c 	ldr	r0, [pc, #44]	; 248 <frame_dummy+0x4c>
+ 218:	e5903000 	ldr	r3, [r0]
+ 21c:	e3530000 	cmp	r3, #0
+ 220:	0a000003 	beq	234 <frame_dummy+0x38>
+ 224:	e59f3020 	ldr	r3, [pc, #32]	; 24c <frame_dummy+0x50>
  228:	e3530000 	cmp	r3, #0
- 22c:	0a000003 	beq	240 <frame_dummy+0x38>
- 230:	e59f3020 	ldr	r3, [pc, #32]	; 258 <frame_dummy+0x50>
- 234:	e3530000 	cmp	r3, #0
- 238:	11a0e00f 	movne	lr, pc
- 23c:	112fff13 	bxne	r3
- 240:	e8bd4008 	pop	{r3, lr}
- 244:	eaffffcb 	b	178 <register_tm_clones>
- 248:	00000000 	.word	0x00000000
- 24c:	000009f4 	.word	0x000009f4
- 250:	00000ec4 	.word	0x00000ec4
- 254:	00000a80 	.word	0x00000a80
- 258:	00000000 	.word	0x00000000
+ 22c:	11a0e00f 	movne	lr, pc
+ 230:	112fff13 	bxne	r3
+ 234:	e8bd4008 	pop	{r3, lr}
+ 238:	eaffffcb 	b	16c <register_tm_clones>
+ 23c:	00000000 	.word	0x00000000
+ 240:	00000bc4 	.word	0x00000bc4
+ 244:	00001064 	.word	0x00001064
+ 248:	00000c20 	.word	0x00000c20
+ 24c:	00000000 	.word	0x00000000
 
-0000025c <plot_pixel>:
+00000250 <plot_pixel>:
 
 volatile int pixel_buffer_start; // global variable
 
 void plot_pixel(int x, int y, short int line_color)
 {
     *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
- 25c:	e3003edc 	movw	r3, #3804	; 0xedc
- 260:	e3403000 	movt	r3, #0
- 264:	e5933000 	ldr	r3, [r3]
- 268:	e1a00080 	lsl	r0, r0, #1
- 26c:	e0831501 	add	r1, r3, r1, lsl #10
- 270:	e18120b0 	strh	r2, [r1, r0]
- 274:	e12fff1e 	bx	lr
+ 250:	e301307c 	movw	r3, #4220	; 0x107c
+ 254:	e3403000 	movt	r3, #0
+ 258:	e5933000 	ldr	r3, [r3]
+ 25c:	e1a00080 	lsl	r0, r0, #1
+ 260:	e0831501 	add	r1, r3, r1, lsl #10
+ 264:	e18120b0 	strh	r2, [r1, r0]
+ 268:	e12fff1e 	bx	lr
 
-00000278 <draw_line>:
+0000026c <draw_line>:
 }
 
 //draws a line from x1, y1 to x2, y2. Requires plotpixel to run
 //assumes math.h not available
 void draw_line(int x1, int y1, int x2, int y2, int colour) {
- 278:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
- 27c:	e24dd00c 	sub	sp, sp, #12
- 280:	e1a08002 	mov	r8, r2
+ 26c:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 270:	e24dd00c 	sub	sp, sp, #12
+ 274:	e1a08002 	mov	r8, r2
 	int is_steep = 0;
 	int deltay = y2 - y1;
- 284:	e061c003 	rsb	r12, r1, r3
+ 278:	e061c003 	rsb	r12, r1, r3
 	int deltax = x2 - x1;
- 288:	e0602002 	rsb	r2, r0, r2
- 28c:	e35c0000 	cmp	r12, #0
- 290:	b26cc000 	rsblt	r12, r12, #0
+ 27c:	e0602002 	rsb	r2, r0, r2
+ 280:	e35c0000 	cmp	r12, #0
+ 284:	b26cc000 	rsblt	r12, r12, #0
 	if (deltay < 0) {
 		deltay = deltay * (-1);
 	}
 
 	//finds it the slope is greater than 1
 	if (((deltax >= 0) && (deltay > deltax)) || ((deltax < 0) && (deltay > (deltax * (-1))))) {
- 294:	e152000c 	cmp	r2, r12
- 298:	a3a04000 	movge	r4, #0
- 29c:	b3a04001 	movlt	r4, #1
- 2a0:	e3520000 	cmp	r2, #0
- 2a4:	b3a04000 	movlt	r4, #0
- 2a8:	e3540000 	cmp	r4, #0
- 2ac:	1a000007 	bne	2d0 <draw_line+0x58>
- 2b0:	e3520000 	cmp	r2, #0
- 2b4:	a3a0a000 	movge	r10, #0
- 2b8:	aa000013 	bge	30c <draw_line+0x94>
- 2bc:	e2622000 	rsb	r2, r2, #0
- 2c0:	e152000c 	cmp	r2, r12
- 2c4:	a3a0a000 	movge	r10, #0
- 2c8:	aa00000f 	bge	30c <draw_line+0x94>
- 2cc:	ea000007 	b	2f0 <draw_line+0x78>
- 2d0:	e1a02008 	mov	r2, r8
+ 288:	e152000c 	cmp	r2, r12
+ 28c:	a3a04000 	movge	r4, #0
+ 290:	b3a04001 	movlt	r4, #1
+ 294:	e3520000 	cmp	r2, #0
+ 298:	b3a04000 	movlt	r4, #0
+ 29c:	e3540000 	cmp	r4, #0
+ 2a0:	1a000007 	bne	2c4 <draw_line+0x58>
+ 2a4:	e3520000 	cmp	r2, #0
+ 2a8:	a3a0a000 	movge	r10, #0
+ 2ac:	aa000013 	bge	300 <draw_line+0x94>
+ 2b0:	e2622000 	rsb	r2, r2, #0
+ 2b4:	e152000c 	cmp	r2, r12
+ 2b8:	a3a0a000 	movge	r10, #0
+ 2bc:	aa00000f 	bge	300 <draw_line+0x94>
+ 2c0:	ea000007 	b	2e4 <draw_line+0x78>
+ 2c4:	e1a02008 	mov	r2, r8
 		int temp = x1;
 		x1 = y1;
 		y1 = temp;
 
 		temp = x2;
 		x2 = y2;
- 2d4:	e1a08003 	mov	r8, r3
+ 2c8:	e1a08003 	mov	r8, r3
 		y2 = temp;
- 2d8:	e1a03002 	mov	r3, r2
+ 2cc:	e1a03002 	mov	r3, r2
 	if (deltay < 0) {
 		deltay = deltay * (-1);
 	}
 
 	//finds it the slope is greater than 1
 	if (((deltax >= 0) && (deltay > deltax)) || ((deltax < 0) && (deltay > (deltax * (-1))))) {
- 2dc:	e1a02000 	mov	r2, r0
+ 2d0:	e1a02000 	mov	r2, r0
 	}
 	
 	//if slope greater than one trades variables to switch from y/x to x/y
 	if (is_steep) {
 		int temp = x1;
 		x1 = y1;
- 2e0:	e1a00001 	mov	r0, r1
+ 2d4:	e1a00001 	mov	r0, r1
 		y1 = temp;
- 2e4:	e1a01002 	mov	r1, r2
+ 2d8:	e1a01002 	mov	r1, r2
 	if (deltay < 0) {
 		deltay = deltay * (-1);
 	}
 
 	//finds it the slope is greater than 1
 	if (((deltax >= 0) && (deltay > deltax)) || ((deltax < 0) && (deltay > (deltax * (-1))))) {
- 2e8:	e3a0a001 	mov	r10, #1
- 2ec:	ea000006 	b	30c <draw_line+0x94>
- 2f0:	e1a02008 	mov	r2, r8
+ 2dc:	e3a0a001 	mov	r10, #1
+ 2e0:	ea000006 	b	300 <draw_line+0x94>
+ 2e4:	e1a02008 	mov	r2, r8
 		int temp = x1;
 		x1 = y1;
 		y1 = temp;
 
 		temp = x2;
 		x2 = y2;
- 2f4:	e1a08003 	mov	r8, r3
+ 2e8:	e1a08003 	mov	r8, r3
 		y2 = temp;
- 2f8:	e1a03002 	mov	r3, r2
+ 2ec:	e1a03002 	mov	r3, r2
 	if (deltay < 0) {
 		deltay = deltay * (-1);
 	}
 
 	//finds it the slope is greater than 1
 	if (((deltax >= 0) && (deltay > deltax)) || ((deltax < 0) && (deltay > (deltax * (-1))))) {
- 2fc:	e1a02000 	mov	r2, r0
+ 2f0:	e1a02000 	mov	r2, r0
 	}
 	
 	//if slope greater than one trades variables to switch from y/x to x/y
 	if (is_steep) {
 		int temp = x1;
 		x1 = y1;
- 300:	e1a00001 	mov	r0, r1
+ 2f4:	e1a00001 	mov	r0, r1
 		y1 = temp;
- 304:	e1a01002 	mov	r1, r2
+ 2f8:	e1a01002 	mov	r1, r2
 	if (deltay < 0) {
 		deltay = deltay * (-1);
 	}
 
 	//finds it the slope is greater than 1
 	if (((deltax >= 0) && (deltay > deltax)) || ((deltax < 0) && (deltay > (deltax * (-1))))) {
- 308:	e3a0a001 	mov	r10, #1
+ 2fc:	e3a0a001 	mov	r10, #1
 		x2 = y2;
 		y2 = temp;
 	}
 	
 	//ensures x2 is greater than x1
 	if (x1 > x2) {
- 30c:	e1500008 	cmp	r0, r8
- 310:	da000005 	ble	32c <draw_line+0xb4>
- 314:	e1a02001 	mov	r2, r1
+ 300:	e1500008 	cmp	r0, r8
+ 304:	da000005 	ble	320 <draw_line+0xb4>
+ 308:	e1a02001 	mov	r2, r1
 		int temp = x1;
 		x1 = x2;
 		x2 = temp;
 
 		temp = y1;
 		y1 = y2;
- 318:	e1a01003 	mov	r1, r3
+ 30c:	e1a01003 	mov	r1, r3
 		y2 = temp;
- 31c:	e1a03002 	mov	r3, r2
+ 310:	e1a03002 	mov	r3, r2
 		x2 = y2;
 		y2 = temp;
 	}
 	
 	//ensures x2 is greater than x1
 	if (x1 > x2) {
- 320:	e1a02000 	mov	r2, r0
+ 314:	e1a02000 	mov	r2, r0
 		int temp = x1;
 		x1 = x2;
- 324:	e1a00008 	mov	r0, r8
+ 318:	e1a00008 	mov	r0, r8
 		x2 = temp;
- 328:	e1a08002 	mov	r8, r2
+ 31c:	e1a08002 	mov	r8, r2
 
 		temp = y1;
 		y1 = y2;
 		y2 = temp;
 	}
 	deltay = y2 - y1;
- 32c:	e0617003 	rsb	r7, r1, r3
+ 320:	e0617003 	rsb	r7, r1, r3
 	deltax = x2 - x1;
- 330:	e060b008 	rsb	r11, r0, r8
+ 324:	e060b008 	rsb	r11, r0, r8
 	error = (-1)*(deltax / 2);
- 334:	e08b4fab 	add	r4, r11, r11, lsr #31
- 338:	e1a040c4 	asr	r4, r4, #1
- 33c:	e2644000 	rsb	r4, r4, #0
- 340:	e3570000 	cmp	r7, #0
- 344:	b2677000 	rsblt	r7, r7, #0
+ 328:	e08b4fab 	add	r4, r11, r11, lsr #31
+ 32c:	e1a040c4 	asr	r4, r4, #1
+ 330:	e2644000 	rsb	r4, r4, #0
+ 334:	e3570000 	cmp	r7, #0
+ 338:	b2677000 	rsblt	r7, r7, #0
 		deltay = deltay * (-1);
 	}
 
 	//determines which way to increment y
 	if (y1 < y2) {
 		y_step = 1;
- 348:	e1510003 	cmp	r1, r3
- 34c:	a3e03000 	mvnge	r3, #0
- 350:	b3a03001 	movlt	r3, #1
- 354:	e58d3004 	str	r3, [sp, #4]
+ 33c:	e1510003 	cmp	r1, r3
+ 340:	a3e03000 	mvnge	r3, #0
+ 344:	b3a03001 	movlt	r3, #1
+ 348:	e58d3004 	str	r3, [sp, #4]
 	}
 
 	int x = 0;
 
 	//plots all the pixels in the line
 	for (x = x1; x <= x2; x++) {
- 358:	e1500008 	cmp	r0, r8
- 35c:	ca000010 	bgt	3a4 <draw_line+0x12c>
- 360:	e1a05000 	mov	r5, r0
+ 34c:	e1500008 	cmp	r0, r8
+ 350:	ca000010 	bgt	398 <draw_line+0x12c>
+ 354:	e1a05000 	mov	r5, r0
 		y2 = temp;
 	}
 	deltay = y2 - y1;
 	deltax = x2 - x1;
 	error = (-1)*(deltax / 2);
 	int y = y1;
- 364:	e1a06001 	mov	r6, r1
+ 358:	e1a06001 	mov	r6, r1
 	for (x = x1; x <= x2; x++) {
 		if (is_steep) {
 			plot_pixel(y, x, colour);
 		}
 		else {
 			plot_pixel(x, y, colour);
- 368:	e1dd93f0 	ldrsh	r9, [sp, #48]	; 0x30
+ 35c:	e1dd93f0 	ldrsh	r9, [sp, #48]	; 0x30
 
 	int x = 0;
 
 	//plots all the pixels in the line
 	for (x = x1; x <= x2; x++) {
 		if (is_steep) {
- 36c:	e35a0000 	cmp	r10, #0
+ 360:	e35a0000 	cmp	r10, #0
 			plot_pixel(y, x, colour);
- 370:	11a00006 	movne	r0, r6
- 374:	11a01005 	movne	r1, r5
+ 364:	11a00006 	movne	r0, r6
+ 368:	11a01005 	movne	r1, r5
 		}
 		else {
 			plot_pixel(x, y, colour);
- 378:	01a00005 	moveq	r0, r5
- 37c:	01a01006 	moveq	r1, r6
- 380:	e1a02009 	mov	r2, r9
- 384:	ebffffb4 	bl	25c <plot_pixel>
+ 36c:	01a00005 	moveq	r0, r5
+ 370:	01a01006 	moveq	r1, r6
+ 374:	e1a02009 	mov	r2, r9
+ 378:	ebffffb4 	bl	250 <plot_pixel>
 		}
 
 		error = error + deltay;
 
 		if (error >= 0) {
- 388:	e0944007 	adds	r4, r4, r7
+ 37c:	e0944007 	adds	r4, r4, r7
 			y = y + y_step;
- 38c:	559d3004 	ldrpl	r3, [sp, #4]
- 390:	50866003 	addpl	r6, r6, r3
+ 380:	559d3004 	ldrpl	r3, [sp, #4]
+ 384:	50866003 	addpl	r6, r6, r3
 			error = error - deltax;
- 394:	506b4004 	rsbpl	r4, r11, r4
+ 388:	506b4004 	rsbpl	r4, r11, r4
 	}
 
 	int x = 0;
 
 	//plots all the pixels in the line
 	for (x = x1; x <= x2; x++) {
- 398:	e2855001 	add	r5, r5, #1
- 39c:	e1580005 	cmp	r8, r5
- 3a0:	aafffff1 	bge	36c <draw_line+0xf4>
+ 38c:	e2855001 	add	r5, r5, #1
+ 390:	e1580005 	cmp	r8, r5
+ 394:	aafffff1 	bge	360 <draw_line+0xf4>
 		if (error >= 0) {
 			y = y + y_step;
 			error = error - deltax;
 		}
 	}	
 }
- 3a4:	e28dd00c 	add	sp, sp, #12
- 3a8:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+ 398:	e28dd00c 	add	sp, sp, #12
+ 39c:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
 
-000003ac <draw_rectangle>:
+000003a0 <draw_rectangle>:
 
 void draw_rectangle(int x1, int y1, int width, int height, int colour) {
- 3ac:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
- 3b0:	e24dd008 	sub	sp, sp, #8
- 3b4:	e1a06001 	mov	r6, r1
- 3b8:	e59d7020 	ldr	r7, [sp, #32]
+ 3a0:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+ 3a4:	e24dd008 	sub	sp, sp, #8
+ 3a8:	e1a06001 	mov	r6, r1
+ 3ac:	e59d7020 	ldr	r7, [sp, #32]
 	int x;
 	
 	for (x = x1; x < (width + x1); x++){
- 3bc:	e0825000 	add	r5, r2, r0
- 3c0:	e1500005 	cmp	r0, r5
- 3c4:	aa00000a 	bge	3f4 <draw_rectangle+0x48>
- 3c8:	e1a04000 	mov	r4, r0
+ 3b0:	e0825000 	add	r5, r2, r0
+ 3b4:	e1500005 	cmp	r0, r5
+ 3b8:	aa00000a 	bge	3e8 <draw_rectangle+0x48>
+ 3bc:	e1a04000 	mov	r4, r0
 		draw_line(x, y1, x, (height + y1), colour);
- 3cc:	e0838001 	add	r8, r3, r1
- 3d0:	e58d7000 	str	r7, [sp]
- 3d4:	e1a00004 	mov	r0, r4
- 3d8:	e1a01006 	mov	r1, r6
- 3dc:	e1a02004 	mov	r2, r4
- 3e0:	e1a03008 	mov	r3, r8
- 3e4:	ebffffa3 	bl	278 <draw_line>
+ 3c0:	e0838001 	add	r8, r3, r1
+ 3c4:	e58d7000 	str	r7, [sp]
+ 3c8:	e1a00004 	mov	r0, r4
+ 3cc:	e1a01006 	mov	r1, r6
+ 3d0:	e1a02004 	mov	r2, r4
+ 3d4:	e1a03008 	mov	r3, r8
+ 3d8:	ebffffa3 	bl	26c <draw_line>
 }
 
 void draw_rectangle(int x1, int y1, int width, int height, int colour) {
 	int x;
 	
 	for (x = x1; x < (width + x1); x++){
- 3e8:	e2844001 	add	r4, r4, #1
- 3ec:	e1540005 	cmp	r4, r5
- 3f0:	bafffff6 	blt	3d0 <draw_rectangle+0x24>
+ 3dc:	e2844001 	add	r4, r4, #1
+ 3e0:	e1540005 	cmp	r4, r5
+ 3e4:	bafffff6 	blt	3c4 <draw_rectangle+0x24>
 		draw_line(x, y1, x, (height + y1), colour);
 	}
 }
- 3f4:	e28dd008 	add	sp, sp, #8
- 3f8:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
+ 3e8:	e28dd008 	add	sp, sp, #8
+ 3ec:	e8bd81f0 	pop	{r4, r5, r6, r7, r8, pc}
 
-000003fc <clear_screen>:
+000003f0 <clear_screen>:
 
 //writes all pixels to black
 void clear_screen() {
- 3fc:	e92d4070 	push	{r4, r5, r6, lr}
+ 3f0:	e92d4070 	push	{r4, r5, r6, lr}
 	int x = 0;
 	
 	for (x = 0; x < 320; x++) {
- 400:	e3a05000 	mov	r5, #0
+ 3f4:	e3a05000 	mov	r5, #0
 		draw_line(x, y1, x, (height + y1), colour);
 	}
 }
 
 //writes all pixels to black
 void clear_screen() {
- 404:	e1a06005 	mov	r6, r5
- 408:	ea000009 	b	434 <clear_screen+0x38>
+ 3f8:	e1a06005 	mov	r6, r5
+ 3fc:	ea000009 	b	428 <clear_screen+0x38>
 	
 	for (x = 0; x < 320; x++) {
 		int y = 0;
 		
 		for (y = 0; y < 240; y++) {
 			plot_pixel(x, y, 0);
- 40c:	e1a00005 	mov	r0, r5
- 410:	e1a01004 	mov	r1, r4
- 414:	e1a02006 	mov	r2, r6
- 418:	ebffff8f 	bl	25c <plot_pixel>
+ 400:	e1a00005 	mov	r0, r5
+ 404:	e1a01004 	mov	r1, r4
+ 408:	e1a02006 	mov	r2, r6
+ 40c:	ebffff8f 	bl	250 <plot_pixel>
 	int x = 0;
 	
 	for (x = 0; x < 320; x++) {
 		int y = 0;
 		
 		for (y = 0; y < 240; y++) {
- 41c:	e2844001 	add	r4, r4, #1
- 420:	e35400f0 	cmp	r4, #240	; 0xf0
- 424:	1afffff8 	bne	40c <clear_screen+0x10>
+ 410:	e2844001 	add	r4, r4, #1
+ 414:	e35400f0 	cmp	r4, #240	; 0xf0
+ 418:	1afffff8 	bne	400 <clear_screen+0x10>
 
 //writes all pixels to black
 void clear_screen() {
 	int x = 0;
 	
 	for (x = 0; x < 320; x++) {
- 428:	e2855001 	add	r5, r5, #1
- 42c:	e3550d05 	cmp	r5, #320	; 0x140
- 430:	08bd8070 	popeq	{r4, r5, r6, pc}
+ 41c:	e2855001 	add	r5, r5, #1
+ 420:	e3550d05 	cmp	r5, #320	; 0x140
+ 424:	08bd8070 	popeq	{r4, r5, r6, pc}
 		draw_line(x, y1, x, (height + y1), colour);
 	}
 }
 
 //writes all pixels to black
 void clear_screen() {
- 434:	e1a04006 	mov	r4, r6
- 438:	eafffff3 	b	40c <clear_screen+0x10>
+ 428:	e1a04006 	mov	r4, r6
+ 42c:	eafffff3 	b	400 <clear_screen+0x10>
 
-0000043c <wait_for_vsync>:
+00000430 <wait_for_vsync>:
 //waits for the S value in the registry to change to 0 indication the frame is drawn
 void wait_for_vsync(){
 	volatile int *pixel_ctrl_ptr = (int*)0xFF203020;
 	register int status;
 	
 	*pixel_ctrl_ptr = 1;
- 43c:	e3033fff 	movw	r3, #16383	; 0x3fff
- 440:	e34f3f20 	movt	r3, #65312	; 0xff20
- 444:	e3a02001 	mov	r2, #1
- 448:	e5032fdf 	str	r2, [r3, #-4063]	; 0xfffff021
+ 430:	e3033fff 	movw	r3, #16383	; 0x3fff
+ 434:	e34f3f20 	movt	r3, #65312	; 0xff20
+ 438:	e3a02001 	mov	r2, #1
+ 43c:	e5032fdf 	str	r2, [r3, #-4063]	; 0xfffff021
 	
 	status = *(pixel_ctrl_ptr + 3);
- 44c:	e5133fd3 	ldr	r3, [r3, #-4051]	; 0xfffff02d
+ 440:	e5133fd3 	ldr	r3, [r3, #-4051]	; 0xfffff02d
 	while((status & 0x01) != 0){
- 450:	e3130001 	tst	r3, #1
- 454:	012fff1e 	bxeq	lr
+ 444:	e3130001 	tst	r3, #1
+ 448:	012fff1e 	bxeq	lr
 		status = *(pixel_ctrl_ptr +3);
- 458:	e3032fff 	movw	r2, #16383	; 0x3fff
- 45c:	e34f2f20 	movt	r2, #65312	; 0xff20
- 460:	e5123fd3 	ldr	r3, [r2, #-4051]	; 0xfffff02d
+ 44c:	e3032fff 	movw	r2, #16383	; 0x3fff
+ 450:	e34f2f20 	movt	r2, #65312	; 0xff20
+ 454:	e5123fd3 	ldr	r3, [r2, #-4051]	; 0xfffff02d
 	register int status;
 	
 	*pixel_ctrl_ptr = 1;
 	
 	status = *(pixel_ctrl_ptr + 3);
 	while((status & 0x01) != 0){
- 464:	e3130001 	tst	r3, #1
- 468:	1afffffc 	bne	460 <wait_for_vsync+0x24>
- 46c:	e12fff1e 	bx	lr
+ 458:	e3130001 	tst	r3, #1
+ 45c:	1afffffc 	bne	454 <wait_for_vsync+0x24>
+ 460:	e12fff1e 	bx	lr
 
-00000470 <draw>:
+00000464 <draw>:
 		status = *(pixel_ctrl_ptr +3);
 	}
 }
 
-void draw(void)
+void draw()
 {
- 470:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
- 474:	e24dd00c 	sub	sp, sp, #12
+ 464:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 468:	e24dd00c 	sub	sp, sp, #12
     volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
     // declare other variables(not shown)
     // initialize location and direction of rectangles(not shown)
 	
 	pixel_buffer_start = * pixel_ctrl_ptr;
- 478:	e3033fff 	movw	r3, #16383	; 0x3fff
- 47c:	e34f3f20 	movt	r3, #65312	; 0xff20
- 480:	e5132fdf 	ldr	r2, [r3, #-4063]	; 0xfffff021
- 484:	e3003edc 	movw	r3, #3804	; 0xedc
- 488:	e3403000 	movt	r3, #0
- 48c:	e5832000 	str	r2, [r3]
+ 46c:	e3033fff 	movw	r3, #16383	; 0x3fff
+ 470:	e34f3f20 	movt	r3, #65312	; 0xff20
+ 474:	e5132fdf 	ldr	r2, [r3, #-4063]	; 0xfffff021
+ 478:	e301307c 	movw	r3, #4220	; 0x107c
+ 47c:	e3403000 	movt	r3, #0
+ 480:	e5832000 	str	r2, [r3]
+	
+	volatile int * tower_ptr = (int *) 0x15c;
 	
 	clear_screen();
- 490:	ebffffd9 	bl	3fc <clear_screen>
- 494:	e3a0404f 	mov	r4, #79	; 0x4f
+ 484:	ebffffd9 	bl	3f0 <clear_screen>
+ 488:	e3a0404f 	mov	r4, #79	; 0x4f
 	int width_mult = 4;
 	
 	
 	//draw pegs
 	for(i = 0; i < 3; i++){
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
- 498:	e30a5460 	movw	r5, #42080	; 0xa460
- 49c:	e34050f4 	movt	r5, #244	; 0xf4
- 4a0:	e1a08004 	mov	r8, r4
- 4a4:	e3a07003 	mov	r7, #3
- 4a8:	e3a060a0 	mov	r6, #160	; 0xa0
- 4ac:	e58d5000 	str	r5, [sp]
- 4b0:	e1a00004 	mov	r0, r4
- 4b4:	e1a01008 	mov	r1, r8
- 4b8:	e1a02007 	mov	r2, r7
- 4bc:	e1a03006 	mov	r3, r6
- 4c0:	ebffffb9 	bl	3ac <draw_rectangle>
- 4c4:	e284404f 	add	r4, r4, #79	; 0x4f
+ 48c:	e30a5460 	movw	r5, #42080	; 0xa460
+ 490:	e34050f4 	movt	r5, #244	; 0xf4
+ 494:	e1a08004 	mov	r8, r4
+ 498:	e3a07003 	mov	r7, #3
+ 49c:	e3a060a0 	mov	r6, #160	; 0xa0
+ 4a0:	e58d5000 	str	r5, [sp]
+ 4a4:	e1a00004 	mov	r0, r4
+ 4a8:	e1a01008 	mov	r1, r8
+ 4ac:	e1a02007 	mov	r2, r7
+ 4b0:	e1a03006 	mov	r3, r6
+ 4b4:	ebffffb9 	bl	3a0 <draw_rectangle>
+ 4b8:	e284404f 	add	r4, r4, #79	; 0x4f
 	int peg_height = 160;
 	int width_mult = 4;
 	
 	
 	//draw pegs
 	for(i = 0; i < 3; i++){
- 4c8:	e3540f4f 	cmp	r4, #316	; 0x13c
- 4cc:	1afffff6 	bne	4ac <draw+0x3c>
- 4d0:	e3a0704f 	mov	r7, #79	; 0x4f
- 4d4:	e3a06000 	mov	r6, #0
-	while((status & 0x01) != 0){
-		status = *(pixel_ctrl_ptr +3);
-	}
-}
-
-void draw(void)
- 4d8:	e59fb06c 	ldr	r11, [pc, #108]	; 54c <draw+0xdc>
-	}
-	
-	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
-			if(tower[j][i] != 0){
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 4dc:	e3019303 	movw	r9, #4867	; 0x1303
- 4e0:	e3a0a006 	mov	r10, #6
- 4e4:	ea000012 	b	534 <draw+0xc4>
+ 4bc:	e3540f4f 	cmp	r4, #316	; 0x13c
+ 4c0:	1afffff6 	bne	4a0 <draw+0x3c>
+ 4c4:	e3a02000 	mov	r2, #0
+ 4c8:	e3a03f57 	mov	r3, #348	; 0x15c
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
-	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
-			if(tower[j][i] != 0){
- 4e8:	e5950000 	ldr	r0, [r5]
- 4ec:	e3500000 	cmp	r0, #0
- 4f0:	0a000007 	beq	514 <draw+0xa4>
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 4f4:	e1a02180 	lsl	r2, r0, #3
- 4f8:	e0030099 	mul	r3, r9, r0
- 4fc:	e58d3000 	str	r3, [sp]
- 500:	e0480100 	sub	r0, r8, r0, lsl #2
- 504:	e1a01004 	mov	r1, r4
- 508:	e2822003 	add	r2, r2, #3
- 50c:	e1a0300a 	mov	r3, r10
- 510:	ebffffa5 	bl	3ac <draw_rectangle>
- 514:	e285500c 	add	r5, r5, #12
- 518:	e2844006 	add	r4, r4, #6
-	for(i = 0; i < 3; i++){
-		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
-	}
-	
-	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
- 51c:	e35400ef 	cmp	r4, #239	; 0xef
- 520:	1afffff0 	bne	4e8 <draw+0x78>
+	for(i = 0; i < 10; i++){
+		tower[i][0] = *tower_ptr;
+ 4cc:	e301c07c 	movw	r12, #4220	; 0x107c
+ 4d0:	e340c000 	movt	r12, #0
+ 4d4:	e4930004 	ldr	r0, [r3], #4
+ 4d8:	e28c1004 	add	r1, r12, #4
+ 4dc:	e7820001 	str	r0, [r2, r1]
+ 4e0:	e282200c 	add	r2, r2, #12
 	//draw pegs
 	for(i = 0; i < 3; i++){
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
-	for(i = 0; i < 3; i++){
- 524:	e2866001 	add	r6, r6, #1
- 528:	e287704f 	add	r7, r7, #79	; 0x4f
- 52c:	e3560003 	cmp	r6, #3
- 530:	0a000003 	beq	544 <draw+0xd4>
-		for(j = 0; j < 4; j++){
-			if(tower[j][i] != 0){
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 534:	e1a08007 	mov	r8, r7
+	for(i = 0; i < 10; i++){
+ 4e4:	e3530f61 	cmp	r3, #388	; 0x184
+ 4e8:	1afffff9 	bne	4d4 <draw+0x70>
+ 4ec:	e1a02001 	mov	r2, r1
+ 4f0:	e3a03d06 	mov	r3, #384	; 0x180
+	}
+	
+	tower_ptr = (int *) 0x180;
+	
+	for(i = 0; i < 10; i++){
+		tower[i][1] = *tower_ptr;
+ 4f4:	e4930004 	ldr	r0, [r3], #4
+ 4f8:	e5810004 	str	r0, [r1, #4]
+ 4fc:	e281100c 	add	r1, r1, #12
+		tower_ptr += 1;
+	}
+	
+	tower_ptr = (int *) 0x180;
+	
+	for(i = 0; i < 10; i++){
+ 500:	e3530f6a 	cmp	r3, #424	; 0x1a8
+ 504:	1afffffa 	bne	4f4 <draw+0x90>
+	}
+	
+	tower_ptr = (int *) 0x1a8;
+	
+	for(i = 0; i < 10; i++){
+		tower[i][1] = *tower_ptr;
+ 508:	e4931004 	ldr	r1, [r3], #4
+ 50c:	e5821004 	str	r1, [r2, #4]
+ 510:	e282200c 	add	r2, r2, #12
+		tower_ptr += 1;
+	}
+	
+	tower_ptr = (int *) 0x1a8;
+	
+	for(i = 0; i < 10; i++){
+ 514:	e3530e1d 	cmp	r3, #464	; 0x1d0
+ 518:	1afffffa 	bne	508 <draw+0xa4>
+ 51c:	e3a0704f 	mov	r7, #79	; 0x4f
+ 520:	e3a06000 	mov	r6, #0
 	while((status & 0x01) != 0){
 		status = *(pixel_ctrl_ptr +3);
 	}
 }
 
-void draw(void)
- 538:	e08b5106 	add	r5, r11, r6, lsl #2
- 53c:	e3a040d7 	mov	r4, #215	; 0xd7
- 540:	eaffffe8 	b	4e8 <draw+0x78>
+void draw()
+ 524:	e59fb06c 	ldr	r11, [pc, #108]	; 598 <draw+0x134>
+	
+	
+	for(i = 0; i < 3; i++){
+		for(j = 0; j < 4; j++){
 			if(tower[j][i] != 0){
 				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
-			}
-		}
+ 528:	e3019303 	movw	r9, #4867	; 0x1303
+ 52c:	e3a0a006 	mov	r10, #6
+ 530:	ea000012 	b	580 <draw+0x11c>
+	}
+	
+	
+	for(i = 0; i < 3; i++){
+		for(j = 0; j < 4; j++){
+			if(tower[j][i] != 0){
+ 534:	e5950000 	ldr	r0, [r5]
+ 538:	e3500000 	cmp	r0, #0
+ 53c:	0a000007 	beq	560 <draw+0xfc>
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+ 540:	e1a02180 	lsl	r2, r0, #3
+ 544:	e0030099 	mul	r3, r9, r0
+ 548:	e58d3000 	str	r3, [sp]
+ 54c:	e0480100 	sub	r0, r8, r0, lsl #2
+ 550:	e1a01004 	mov	r1, r4
+ 554:	e2822003 	add	r2, r2, #3
+ 558:	e1a0300a 	mov	r3, r10
+ 55c:	ebffff8f 	bl	3a0 <draw_rectangle>
+ 560:	e285500c 	add	r5, r5, #12
+ 564:	e2844006 	add	r4, r4, #6
+		tower_ptr += 1;
+	}
+	
+	
+	for(i = 0; i < 3; i++){
+		for(j = 0; j < 4; j++){
+ 568:	e35400ef 	cmp	r4, #239	; 0xef
+ 56c:	1afffff0 	bne	534 <draw+0xd0>
+		tower[i][1] = *tower_ptr;
+		tower_ptr += 1;
+	}
+	
+	
+	for(i = 0; i < 3; i++){
+ 570:	e2866001 	add	r6, r6, #1
+ 574:	e287704f 	add	r7, r7, #79	; 0x4f
+ 578:	e3560003 	cmp	r6, #3
+ 57c:	0a000003 	beq	590 <draw+0x12c>
+		for(j = 0; j < 4; j++){
+			if(tower[j][i] != 0){
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+ 580:	e1a08007 	mov	r8, r7
+	while((status & 0x01) != 0){
+		status = *(pixel_ctrl_ptr +3);
 	}
 }
- 544:	e28dd00c 	add	sp, sp, #12
- 548:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
- 54c:	00000ee0 	.word	0x00000ee0
 
-00000550 <main>:
+void draw()
+ 584:	e08b5106 	add	r5, r11, r6, lsl #2
+ 588:	e3a040d7 	mov	r4, #215	; 0xd7
+ 58c:	eaffffe8 	b	534 <draw+0xd0>
+		int j = i % 10;
+		if(tower[i] != 0){
+			draw_rectangle(79 * ((i/10)+1) - width_mult*tower[i], 239 - (4-j)*disk_height, width_mult*(2* tower[i])+ peg_width, disk_height, 0x0300 * tower[i]+ 0x1000 * tower[i] + 0x3 * tower[i]);
+		}
+	} */
+}
+ 590:	e28dd00c 	add	sp, sp, #12
+ 594:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+ 598:	00001080 	.word	0x00001080
+
+0000059c <main>:
 
 // code for subroutines (not shown)
 
 int main(void){
- 550:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
- 554:	e24dd034 	sub	sp, sp, #52	; 0x34
-	//initialize tower starting conditions 
- 	int local_tower[4][3] = { {0, 0, 0},
- 558:	e1a0e00d 	mov	lr, sp
- 55c:	e300c9f8 	movw	r12, #2552	; 0x9f8
- 560:	e340c000 	movt	r12, #0
- 564:	e8bc000f 	ldm	r12!, {r0, r1, r2, r3}
- 568:	e8ae000f 	stmia	lr!, {r0, r1, r2, r3}
- 56c:	e8bc000f 	ldm	r12!, {r0, r1, r2, r3}
- 570:	e8ae000f 	stmia	lr!, {r0, r1, r2, r3}
- 574:	e89c000f 	ldm	r12, {r0, r1, r2, r3}
- 578:	e88e000f 	stm	lr, {r0, r1, r2, r3}
- 57c:	e1a0300d 	mov	r3, sp
- 580:	e59f2034 	ldr	r2, [pc, #52]	; 5bc <main+0x6c>
-	}
-}
+ 59c:	e92d4008 	push	{r3, lr}
 
-// code for subroutines (not shown)
+	_start();
+ 5a0:	eb000000 	bl	5a8 <_start>
+ 5a4:	e8bd8008 	pop	{r3, pc}
 
-int main(void){
- 584:	e28d0030 	add	r0, sp, #48	; 0x30
-				{3, 0, 0}}; 
-	int i;
-	int j;
-	for (i = 0; i < 4; i++){
-		for (j = 0; j < 3; j++){
-			tower[i][j] = local_tower[i][j];
- 588:	e5931000 	ldr	r1, [r3]
- 58c:	e5821000 	str	r1, [r2]
- 590:	e5931004 	ldr	r1, [r3, #4]
- 594:	e5821004 	str	r1, [r2, #4]
- 598:	e5931008 	ldr	r1, [r3, #8]
- 59c:	e5821008 	str	r1, [r2, #8]
- 5a0:	e283300c 	add	r3, r3, #12
- 5a4:	e282200c 	add	r2, r2, #12
-			{1, 0, 0},
-			{2, 0, 0},
-				{3, 0, 0}}; 
-	int i;
-	int j;
-	for (i = 0; i < 4; i++){
- 5a8:	e1530000 	cmp	r3, r0
- 5ac:	1afffff5 	bne	588 <main+0x38>
-		for (j = 0; j < 3; j++){
-			tower[i][j] = local_tower[i][j];
-		}
-	}
-	draw();
- 5b0:	ebffffae 	bl	470 <draw>
- 5b4:	e28dd034 	add	sp, sp, #52	; 0x34
- 5b8:	e8bd8000 	ldmfd	sp!, {pc}
- 5bc:	00000ee0 	.word	0x00000ee0
+000005a8 <_start>:
+				// CMP		R3, #480
+				// BLT		FILLEMPTY
 
-000005c0 <atexit>:
- 5c0:	e1a01000 	mov	r1, r0
- 5c4:	e3a00000 	mov	r0, #0
- 5c8:	e92d4008 	push	{r3, lr}
- 5cc:	e1a02000 	mov	r2, r0
- 5d0:	e1a03000 	mov	r3, r0
- 5d4:	eb00000e 	bl	614 <__register_exitproc>
- 5d8:	e8bd4008 	pop	{r3, lr}
- 5dc:	e12fff1e 	bx	lr
+				
+				
+POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
+ 5a8:	e3a00f56 	mov	r0, #344	; 0x158
+				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
+ 5ac:	e59f11cc 	ldr	r1, [pc, #460]	; 780 <PUSH_BUTTON_LOCATION+0x4>
+				LDR 	R1, [R1]
+ 5b0:	e5911000 	ldr	r1, [r1]
+				BL		draw
+ 5b4:	ebffffaa 	bl	464 <draw>
 
-000005e0 <exit>:
- 5e0:	e92d4008 	push	{r3, lr}
- 5e4:	e3a01000 	mov	r1, #0
- 5e8:	e1a04000 	mov	r4, r0
- 5ec:	eb000045 	bl	708 <__call_exitprocs>
- 5f0:	e59f3018 	ldr	r3, [pc, #24]	; 610 <exit+0x30>
- 5f4:	e5930000 	ldr	r0, [r3]
- 5f8:	e590303c 	ldr	r3, [r0, #60]	; 0x3c
- 5fc:	e3530000 	cmp	r3, #0
- 600:	11a0e00f 	movne	lr, pc
- 604:	112fff13 	bxne	r3
- 608:	e1a00004 	mov	r0, r4
- 60c:	eb0000c9 	bl	938 <_exit>
- 610:	00000a28 	.word	0x00000a28
+000005b8 <POLLC1>:
+			
+POLLC1:			LDRB	R2, [R1]	//Loads PB values
+ 5b8:	e5d12000 	ldrb	r2, [r1]
+				CMP		R2, #0		//Checks if PB pressed
+ 5bc:	e3520000 	cmp	r2, #0
+				BEQ		POLLC1
+ 5c0:	0afffffc 	beq	5b8 <POLLC1>
+				CMP		R2, #0b1000 //checks if PB was valid
+ 5c4:	e3520008 	cmp	r2, #8
+				BEQ		POLLC1
+ 5c8:	0afffffa 	beq	5b8 <POLLC1>
+				STRB	R2, [R0]	//if PB pressed stored in memory
+ 5cc:	e5c02000 	strb	r2, [r0]
+				B		WAITPOLLC1		//goes to check for second press
+ 5d0:	eaffffff 	b	5d4 <WAITPOLLC1>
 
-00000614 <__register_exitproc>:
- 614:	e59fc0e4 	ldr	r12, [pc, #228]	; 700 <__register_exitproc+0xec>
- 618:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
- 61c:	e59c4000 	ldr	r4, [r12]
- 620:	e594c148 	ldr	r12, [r4, #328]	; 0x148
- 624:	e35c0000 	cmp	r12, #0
- 628:	0284cf53 	addeq	r12, r4, #332	; 0x14c
- 62c:	e59c5004 	ldr	r5, [r12, #4]
- 630:	0584c148 	streq	r12, [r4, #328]	; 0x148
- 634:	e355001f 	cmp	r5, #31
- 638:	e24dd010 	sub	sp, sp, #16
- 63c:	e1a06000 	mov	r6, r0
- 640:	da000015 	ble	69c <__register_exitproc+0x88>
- 644:	e59f00b8 	ldr	r0, [pc, #184]	; 704 <__register_exitproc+0xf0>
- 648:	e3500000 	cmp	r0, #0
- 64c:	1a000001 	bne	658 <__register_exitproc+0x44>
- 650:	e3e00000 	mvn	r0, #0
- 654:	ea000018 	b	6bc <__register_exitproc+0xa8>
- 658:	e3a00e19 	mov	r0, #400	; 0x190
- 65c:	e58d100c 	str	r1, [sp, #12]
- 660:	e58d2008 	str	r2, [sp, #8]
- 664:	e58d3004 	str	r3, [sp, #4]
- 668:	e320f000 	nop	{0}
- 66c:	e250c000 	subs	r12, r0, #0
- 670:	e59d100c 	ldr	r1, [sp, #12]
- 674:	e59d2008 	ldr	r2, [sp, #8]
- 678:	e59d3004 	ldr	r3, [sp, #4]
- 67c:	0afffff3 	beq	650 <__register_exitproc+0x3c>
- 680:	e5945148 	ldr	r5, [r4, #328]	; 0x148
- 684:	e3a00000 	mov	r0, #0
- 688:	e58c0004 	str	r0, [r12, #4]
- 68c:	e58c5000 	str	r5, [r12]
- 690:	e584c148 	str	r12, [r4, #328]	; 0x148
- 694:	e58c0188 	str	r0, [r12, #392]	; 0x188
- 698:	e58c018c 	str	r0, [r12, #396]	; 0x18c
- 69c:	e3560000 	cmp	r6, #0
- 6a0:	e59c4004 	ldr	r4, [r12, #4]
- 6a4:	1a000007 	bne	6c8 <__register_exitproc+0xb4>
- 6a8:	e2843002 	add	r3, r4, #2
- 6ac:	e2844001 	add	r4, r4, #1
- 6b0:	e78c1103 	str	r1, [r12, r3, lsl #2]
- 6b4:	e58c4004 	str	r4, [r12, #4]
- 6b8:	e3a00000 	mov	r0, #0
- 6bc:	e28dd010 	add	sp, sp, #16
- 6c0:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
- 6c4:	e12fff1e 	bx	lr
- 6c8:	e3a00001 	mov	r0, #1
- 6cc:	e1a00410 	lsl	r0, r0, r4
- 6d0:	e08c8104 	add	r8, r12, r4, lsl #2
- 6d4:	e3560002 	cmp	r6, #2
- 6d8:	e59c7188 	ldr	r7, [r12, #392]	; 0x188
- 6dc:	e5883108 	str	r3, [r8, #264]	; 0x108
- 6e0:	059c318c 	ldreq	r3, [r12, #396]	; 0x18c
- 6e4:	e1877000 	orr	r7, r7, r0
- 6e8:	01830000 	orreq	r0, r3, r0
- 6ec:	e1a05008 	mov	r5, r8
- 6f0:	e5882088 	str	r2, [r8, #136]	; 0x88
- 6f4:	e58c7188 	str	r7, [r12, #392]	; 0x188
- 6f8:	058c018c 	streq	r0, [r12, #396]	; 0x18c
- 6fc:	eaffffe9 	b	6a8 <__register_exitproc+0x94>
- 700:	00000a28 	.word	0x00000a28
- 704:	00000000 	.word	0x00000000
+000005d4 <WAITPOLLC1>:
+				
+WAITPOLLC1:		LDRB	R4, [R1]
+ 5d4:	e5d14000 	ldrb	r4, [r1]
+				CMP		R4, #0
+ 5d8:	e3540000 	cmp	r4, #0
+				BEQ		POLLC2
+ 5dc:	0a000000 	beq	5e4 <POLLC2>
+				B		WAITPOLLC1
+ 5e0:	eafffffb 	b	5d4 <WAITPOLLC1>
 
-00000708 <__call_exitprocs>:
- 708:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
- 70c:	e59f3168 	ldr	r3, [pc, #360]	; 87c <__call_exitprocs+0x174>
- 710:	e5933000 	ldr	r3, [r3]
- 714:	e24dd014 	sub	sp, sp, #20
- 718:	e58d3004 	str	r3, [sp, #4]
- 71c:	e2833f52 	add	r3, r3, #328	; 0x148
- 720:	e58d0008 	str	r0, [sp, #8]
- 724:	e58d300c 	str	r3, [sp, #12]
- 728:	e1a07001 	mov	r7, r1
- 72c:	e3a08001 	mov	r8, #1
- 730:	e59d3004 	ldr	r3, [sp, #4]
- 734:	e5936148 	ldr	r6, [r3, #328]	; 0x148
- 738:	e3560000 	cmp	r6, #0
- 73c:	e59db00c 	ldr	r11, [sp, #12]
- 740:	0a000033 	beq	814 <__call_exitprocs+0x10c>
- 744:	e5965004 	ldr	r5, [r6, #4]
- 748:	e2554001 	subs	r4, r5, #1
- 74c:	5286a088 	addpl	r10, r6, #136	; 0x88
- 750:	5285501f 	addpl	r5, r5, #31
- 754:	508a5105 	addpl	r5, r10, r5, lsl #2
- 758:	5a000007 	bpl	77c <__call_exitprocs+0x74>
- 75c:	ea000029 	b	808 <__call_exitprocs+0x100>
- 760:	e5953000 	ldr	r3, [r5]
- 764:	e1530007 	cmp	r3, r7
- 768:	0a000005 	beq	784 <__call_exitprocs+0x7c>
- 76c:	e2444001 	sub	r4, r4, #1
- 770:	e3740001 	cmn	r4, #1
- 774:	e2455004 	sub	r5, r5, #4
- 778:	0a000022 	beq	808 <__call_exitprocs+0x100>
- 77c:	e3570000 	cmp	r7, #0
- 780:	1afffff6 	bne	760 <__call_exitprocs+0x58>
- 784:	e5963004 	ldr	r3, [r6, #4]
- 788:	e06a2005 	rsb	r2, r10, r5
- 78c:	e2433001 	sub	r3, r3, #1
- 790:	e0862002 	add	r2, r6, r2
- 794:	e1530004 	cmp	r3, r4
- 798:	e5123078 	ldr	r3, [r2, #-120]	; 0xffffff88
- 79c:	13a01000 	movne	r1, #0
- 7a0:	05864004 	streq	r4, [r6, #4]
- 7a4:	15021078 	strne	r1, [r2, #-120]	; 0xffffff88
- 7a8:	e3530000 	cmp	r3, #0
- 7ac:	0affffee 	beq	76c <__call_exitprocs+0x64>
- 7b0:	e1a02418 	lsl	r2, r8, r4
- 7b4:	e5961188 	ldr	r1, [r6, #392]	; 0x188
- 7b8:	e1120001 	tst	r2, r1
- 7bc:	e5969004 	ldr	r9, [r6, #4]
- 7c0:	0a000016 	beq	820 <__call_exitprocs+0x118>
- 7c4:	e596118c 	ldr	r1, [r6, #396]	; 0x18c
- 7c8:	e1120001 	tst	r2, r1
- 7cc:	1a000016 	bne	82c <__call_exitprocs+0x124>
- 7d0:	e59d0008 	ldr	r0, [sp, #8]
- 7d4:	e5151080 	ldr	r1, [r5, #-128]	; 0xffffff80
- 7d8:	e1a0e00f 	mov	lr, pc
- 7dc:	e12fff13 	bx	r3
- 7e0:	e5963004 	ldr	r3, [r6, #4]
- 7e4:	e1530009 	cmp	r3, r9
- 7e8:	1affffd0 	bne	730 <__call_exitprocs+0x28>
- 7ec:	e59b3000 	ldr	r3, [r11]
- 7f0:	e1530006 	cmp	r3, r6
- 7f4:	1affffcd 	bne	730 <__call_exitprocs+0x28>
- 7f8:	e2444001 	sub	r4, r4, #1
- 7fc:	e3740001 	cmn	r4, #1
- 800:	e2455004 	sub	r5, r5, #4
- 804:	1affffdc 	bne	77c <__call_exitprocs+0x74>
- 808:	e59f1070 	ldr	r1, [pc, #112]	; 880 <__call_exitprocs+0x178>
- 80c:	e3510000 	cmp	r1, #0
- 810:	1a000009 	bne	83c <__call_exitprocs+0x134>
- 814:	e28dd014 	add	sp, sp, #20
- 818:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
- 81c:	e12fff1e 	bx	lr
- 820:	e1a0e00f 	mov	lr, pc
- 824:	e12fff13 	bx	r3
- 828:	eaffffec 	b	7e0 <__call_exitprocs+0xd8>
- 82c:	e5150080 	ldr	r0, [r5, #-128]	; 0xffffff80
- 830:	e1a0e00f 	mov	lr, pc
- 834:	e12fff13 	bx	r3
- 838:	eaffffe8 	b	7e0 <__call_exitprocs+0xd8>
- 83c:	e5963004 	ldr	r3, [r6, #4]
- 840:	e3530000 	cmp	r3, #0
- 844:	e5963000 	ldr	r3, [r6]
- 848:	1a000008 	bne	870 <__call_exitprocs+0x168>
- 84c:	e3530000 	cmp	r3, #0
- 850:	0a000006 	beq	870 <__call_exitprocs+0x168>
- 854:	e1a00006 	mov	r0, r6
- 858:	e58b3000 	str	r3, [r11]
- 85c:	e320f000 	nop	{0}
- 860:	e59b6000 	ldr	r6, [r11]
- 864:	e3560000 	cmp	r6, #0
- 868:	1affffb5 	bne	744 <__call_exitprocs+0x3c>
- 86c:	eaffffe8 	b	814 <__call_exitprocs+0x10c>
- 870:	e1a0b006 	mov	r11, r6
- 874:	e1a06003 	mov	r6, r3
- 878:	eafffff9 	b	864 <__call_exitprocs+0x15c>
- 87c:	00000a28 	.word	0x00000a28
- 880:	00000000 	.word	0x00000000
+000005e4 <POLLC2>:
+			
+POLLC2:			LDRB	R3, [R1]	//Loads PB values
+ 5e4:	e5d13000 	ldrb	r3, [r1]
+				CMP		R3, #0		//Checks if PB pressed
+ 5e8:	e3530000 	cmp	r3, #0
+				BEQ		POLLC2
+ 5ec:	0afffffc 	beq	5e4 <POLLC2>
+				CMP		R3, #0b1000 //checks if PB was valid
+ 5f0:	e3530008 	cmp	r3, #8
+				BEQ		POLLC2
+ 5f4:	0afffffa 	beq	5e4 <POLLC2>
+				STRB	R3, [R0, #1]	//if PB pressed stored in memory
+ 5f8:	e5c03001 	strb	r3, [r0, #1]
+				B		WAITPOLLC2		//goes to logic functions
+ 5fc:	eaffffff 	b	600 <WAITPOLLC2>
 
-00000884 <register_fini>:
- 884:	e92d4008 	push	{r3, lr}
- 888:	e59f3010 	ldr	r3, [pc, #16]	; 8a0 <register_fini+0x1c>
- 88c:	e3530000 	cmp	r3, #0
- 890:	159f000c 	ldrne	r0, [pc, #12]	; 8a4 <register_fini+0x20>
- 894:	1bffff49 	blne	5c0 <atexit>
- 898:	e8bd4008 	pop	{r3, lr}
- 89c:	e12fff1e 	bx	lr
- 8a0:	00000a50 	.word	0x00000a50
- 8a4:	000008a8 	.word	0x000008a8
+00000600 <WAITPOLLC2>:
+				
+WAITPOLLC2:		LDRB	R4, [R1]
+ 600:	e5d14000 	ldrb	r4, [r1]
+				CMP		R4, #0
+ 604:	e3540000 	cmp	r4, #0
+				BEQ		LOGIC_START
+ 608:	0a000000 	beq	610 <LOGIC_START>
+				B		WAITPOLLC2
+ 60c:	eafffffb 	b	600 <WAITPOLLC2>
 
-000008a8 <__libc_fini_array>:
- 8a8:	e92d4038 	push	{r3, r4, r5, lr}
- 8ac:	e59f5030 	ldr	r5, [pc, #48]	; 8e4 <__libc_fini_array+0x3c>
- 8b0:	e59f4030 	ldr	r4, [pc, #48]	; 8e8 <__libc_fini_array+0x40>
- 8b4:	e0654004 	rsb	r4, r5, r4
- 8b8:	e1b04144 	asrs	r4, r4, #2
- 8bc:	10855104 	addne	r5, r5, r4, lsl #2
- 8c0:	0a000004 	beq	8d8 <__libc_fini_array+0x30>
- 8c4:	e5353004 	ldr	r3, [r5, #-4]!
- 8c8:	e1a0e00f 	mov	lr, pc
- 8cc:	e12fff13 	bx	r3
- 8d0:	e2544001 	subs	r4, r4, #1
- 8d4:	1afffffa 	bne	8c4 <__libc_fini_array+0x1c>
- 8d8:	eb00005c 	bl	a50 <__libc_fini>
- 8dc:	e8bd4038 	pop	{r3, r4, r5, lr}
- 8e0:	e12fff1e 	bx	lr
- 8e4:	00000a68 	.word	0x00000a68
- 8e8:	00000a6c 	.word	0x00000a6c
+00000610 <LOGIC_START>:
 
-000008ec <__cs3_premain>:
- 8ec:	e92d4008 	push	{r3, lr}
- 8f0:	eb00001d 	bl	96c <__libc_init_array>
- 8f4:	e59f3030 	ldr	r3, [pc, #48]	; 92c <__cs3_premain+0x40>
- 8f8:	e3530000 	cmp	r3, #0
- 8fc:	15930000 	ldrne	r0, [r3]
- 900:	01a00003 	moveq	r0, r3
- 904:	e59f3024 	ldr	r3, [pc, #36]	; 930 <__cs3_premain+0x44>
- 908:	e3530000 	cmp	r3, #0
- 90c:	15931000 	ldrne	r1, [r3]
- 910:	01a01003 	moveq	r1, r3
- 914:	e3a02000 	mov	r2, #0
- 918:	ebffff0c 	bl	550 <main>
- 91c:	e59f3010 	ldr	r3, [pc, #16]	; 934 <__cs3_premain+0x48>
- 920:	e3530000 	cmp	r3, #0
- 924:	1bffff2d 	blne	5e0 <exit>
- 928:	eafffffe 	b	928 <__cs3_premain+0x3c>
+
+LOGIC_START:	
+				//MOV		R10, #160
+
+				CMP		R2, #0b0001		//assigns R2 to the key number by checking value against masks
+ 610:	e3520001 	cmp	r2, #1
+				MOVEQ	R2, #0
+ 614:	03a02000 	moveq	r2, #0
+				CMP		R2, #0b0010
+ 618:	e3520002 	cmp	r2, #2
+				MOVEQ	R2, #1
+ 61c:	03a02001 	moveq	r2, #1
+				CMP		R2, #0b0100
+ 620:	e3520004 	cmp	r2, #4
+				MOVEQ	R2, #2
+ 624:	03a02002 	moveq	r2, #2
+				
+				//MUL 	R7, R2, R10		//Multiplies by 160 as that is the length of one row of the tower Array
+				
+				LDR R10, =COLUMN0
+ 628:	e59fa154 	ldr	r10, [pc, #340]	; 784 <PUSH_BUTTON_LOCATION+0x8>
+				CMP		R2, #0
+ 62c:	e3520000 	cmp	r2, #0
+				MOVEQ	R7, R10
+ 630:	01a0700a 	moveq	r7, r10
+				
+				LDR R10, =COLUMN1
+ 634:	e59fa14c 	ldr	r10, [pc, #332]	; 788 <PUSH_BUTTON_LOCATION+0xc>
+				CMP		R2, #1
+ 638:	e3520001 	cmp	r2, #1
+				MOVEQ	R7, R10
+ 63c:	01a0700a 	moveq	r7, r10
+				
+				LDR R10, =COLUMN2
+ 640:	e59fa144 	ldr	r10, [pc, #324]	; 78c <PUSH_BUTTON_LOCATION+0x10>
+				CMP		R2, #2
+ 644:	e3520002 	cmp	r2, #2
+				MOVEQ	R7, R10
+ 648:	01a0700a 	moveq	r7, r10
+				
+				CMP		R3, #0b0001		//assigns R3 to the key number by checking value against masks
+ 64c:	e3530001 	cmp	r3, #1
+				MOVEQ	R3, #0
+ 650:	03a03000 	moveq	r3, #0
+				CMP		R3, #0b0010
+ 654:	e3530002 	cmp	r3, #2
+				MOVEQ	R3, #1
+ 658:	03a03001 	moveq	r3, #1
+				CMP		R3, #0b0100
+ 65c:	e3530004 	cmp	r3, #4
+				MOVEQ	R3, #2
+ 660:	03a03002 	moveq	r3, #2
+				
+				//MUL		R8, R3, R10			//Multiplies by 40 as that is the length of one row of the tower Array
+
+				LDR R10, =COLUMN0
+ 664:	e59fa118 	ldr	r10, [pc, #280]	; 784 <PUSH_BUTTON_LOCATION+0x8>
+				CMP		R3, #0
+ 668:	e3530000 	cmp	r3, #0
+				MOVEQ	R8, R10
+ 66c:	01a0800a 	moveq	r8, r10
+				
+				LDR R10, =COLUMN1
+ 670:	e59fa110 	ldr	r10, [pc, #272]	; 788 <PUSH_BUTTON_LOCATION+0xc>
+				CMP		R3, #1
+ 674:	e3530001 	cmp	r3, #1
+				MOVEQ	R8, R10
+ 678:	01a0800a 	moveq	r8, r10
+				
+				LDR R10, =COLUMN2
+ 67c:	e59fa108 	ldr	r10, [pc, #264]	; 78c <PUSH_BUTTON_LOCATION+0x10>
+				CMP		R3, #2
+ 680:	e3530002 	cmp	r3, #2
+				MOVEQ	R8, R10
+ 684:	01a0800a 	moveq	r8, r10
+				
+				
+				ADD		R9, R7, #40
+ 688:	e2879028 	add	r9, r7, #40	; 0x28
+
+0000068c <CHECK_TOP_C1>:
+				//ADD		R6, R2, #1		//setting limit to column
+				//MUL		R9, R6, R10		//for example, if r2 was column 0, then r6 = 1, r9 = 1 * 160 = 160 = the start address of
+											//the second column
+				//ADD		R9, #16		//potentially incorrect offset
+CHECK_TOP_C1:	
+				CMP		R7, R9			//checking if end of column was reached
+ 68c:	e1570009 	cmp	r7, r9
+				BGE		POLLING_START	//it end of column reached buttom press was invalid and returning to polling
+ 690:	aaffffc4 	bge	5a8 <_start>
+				LDR		R4, [R7]	//checking disk value 
+ 694:	e5974000 	ldr	r4, [r7]
+				ADD		R7, #4
+ 698:	e2877004 	add	r7, r7, #4
+				CMP		R4, #0			//if disk value is not zero then that is the top disk on the column
+ 69c:	e3540000 	cmp	r4, #0
+				BEQ		CHECK_TOP_C1	//if disk value is zero cycles throught checktop again for the next memory location
+ 6a0:	0afffff9 	beq	68c <CHECK_TOP_C1>
+				SUB		R7, #4
+ 6a4:	e2477004 	sub	r7, r7, #4
+				
+				
+				ADD		R9, R8, #40
+ 6a8:	e2889028 	add	r9, r8, #40	; 0x28
+
+000006ac <CHECK_TOP_C2>:
+											//the second column
+				//ADD		R9, #16		//potentially incorrect offset
+				
+				
+CHECK_TOP_C2:	
+				CMP		R8, R9			//checking if end of column was reached
+ 6ac:	e1580009 	cmp	r8, r9
+				BGE		C2_EMPTY		//if so going to C2_EMPTY to set disk size to 0
+ 6b0:	aa00000c 	bge	6e8 <C2_EMPTY>
+				LDR		R5, [R8]	//checking disk value 
+ 6b4:	e5985000 	ldr	r5, [r8]
+				ADD		R8, #4
+ 6b8:	e2888004 	add	r8, r8, #4
+				CMP		R5, #0			//if disk value is not zero then that is the top disk on the column
+ 6bc:	e3550000 	cmp	r5, #0
+				BEQ		CHECK_TOP_C2	//if disk value is zero cycles throught checktop again for the next memory location
+ 6c0:	0afffff9 	beq	6ac <CHECK_TOP_C2>
+
+000006c4 <CHECK_LEGAL>:
+				
+//the following subroutine checks legality of the move that the user requested
+CHECK_LEGAL:	MOV		R1, #0
+ 6c4:	e3a01000 	mov	r1, #0
+				CMP		R5, #0	
+ 6c8:	e3550000 	cmp	r5, #0
+				BEQ		MOVING_EMPTY
+ 6cc:	0a000007 	beq	6f0 <MOVING_EMPTY>
+				
+				CMP		R4, R5			//checks if the disk being moved is smaller than the one its being moved on top of
+ 6d0:	e1540005 	cmp	r4, r5
+				BGT		POLLING_START	//if not the move is invalid and it just back to polling
+ 6d4:	caffffb3 	bgt	5a8 <_start>
+				
+				STR		R1, [R7]		//moving disks
+ 6d8:	e5871000 	str	r1, [r7]
+				SUB		R8, #8
+ 6dc:	e2488008 	sub	r8, r8, #8
+				STR		R4, [R8]
+ 6e0:	e5884000 	str	r4, [r8]
+				B		POLLING_START			//drawing new positions to screen
+ 6e4:	eaffffaf 	b	5a8 <_start>
+
+000006e8 <C2_EMPTY>:
+				
+//the following subroutine does (unnecessary) operations when a column that is being moved to is empty				
+C2_EMPTY:		MOV		R5, #0			//ensuring a value is stored in r5(for legality)
+ 6e8:	e3a05000 	mov	r5, #0
+				//SUB		R8, R8, #16		//potentially incorrect thing
+				B		CHECK_LEGAL
+ 6ec:	eafffff4 	b	6c4 <CHECK_LEGAL>
+
+000006f0 <MOVING_EMPTY>:
+
+//the following subroutine moves a disk into an empty column
+MOVING_EMPTY:	SUB		R8, #4
+ 6f0:	e2488004 	sub	r8, r8, #4
+				STR		R4, [R8]
+ 6f4:	e5884000 	str	r4, [r8]
+				STR		R5, [R7]
+ 6f8:	e5875000 	str	r5, [r7]
+				B		POLLING_START
+ 6fc:	eaffffa9 	b	5a8 <_start>
+
+00000700 <BUTTONS>:
+ 700:	00000000 	.word	0x00000000
+
+00000704 <COLUMN0>:
+ 704:	00000001 	.word	0x00000001
+ 708:	00000002 	.word	0x00000002
+ 70c:	00000003 	.word	0x00000003
+ 710:	00000004 	.word	0x00000004
+ 714:	00000005 	.word	0x00000005
+ 718:	00000006 	.word	0x00000006
+ 71c:	00000007 	.word	0x00000007
+ 720:	00000008 	.word	0x00000008
+ 724:	00000009 	.word	0x00000009
+ 728:	0000000a 	.word	0x0000000a
+
+0000072c <COLUMN1>:
 	...
- 934:	000005e0 	.word	0x000005e0
 
-00000938 <_exit>:
- 938:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
- 93c:	e3a00018 	mov	r0, #24
- 940:	e59f1004 	ldr	r1, [pc, #4]	; 94c <_exit+0x14>
- 944:	ef123456 	svc	0x00123456
- 948:	eafffffe 	b	948 <_exit+0x10>
- 94c:	00020026 	.word	0x00020026
+00000754 <COLUMN2>:
+	...
 
-00000950 <__cs3_isr_interrupt>:
- 950:	eafffffe 	b	950 <__cs3_isr_interrupt>
+0000077c <PUSH_BUTTON_LOCATION>:
+ 77c:	ff200050 	.word	0xff200050
+				// BLT		FILLEMPTY
 
-00000954 <__cs3_isr_undef>:
- 954:	eafffffe 	b	954 <__cs3_isr_undef>
+				
+				
+POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
+				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
+ 780:	0000077c 	.word	0x0000077c
+				CMP		R2, #0b0100
+				MOVEQ	R2, #2
+				
+				//MUL 	R7, R2, R10		//Multiplies by 160 as that is the length of one row of the tower Array
+				
+				LDR R10, =COLUMN0
+ 784:	00000704 	.word	0x00000704
+				CMP		R2, #0
+				MOVEQ	R7, R10
+				
+				LDR R10, =COLUMN1
+ 788:	0000072c 	.word	0x0000072c
+				CMP		R2, #1
+				MOVEQ	R7, R10
+				
+				LDR R10, =COLUMN2
+ 78c:	00000754 	.word	0x00000754
 
-00000958 <__cs3_isr_swi>:
- 958:	eafffffe 	b	958 <__cs3_isr_swi>
+00000790 <atexit>:
+ 790:	e1a01000 	mov	r1, r0
+ 794:	e3a00000 	mov	r0, #0
+ 798:	e92d4008 	push	{r3, lr}
+ 79c:	e1a02000 	mov	r2, r0
+ 7a0:	e1a03000 	mov	r3, r0
+ 7a4:	eb00000e 	bl	7e4 <__register_exitproc>
+ 7a8:	e8bd4008 	pop	{r3, lr}
+ 7ac:	e12fff1e 	bx	lr
 
-0000095c <__cs3_isr_pabort>:
- 95c:	eafffffe 	b	95c <__cs3_isr_pabort>
+000007b0 <exit>:
+ 7b0:	e92d4008 	push	{r3, lr}
+ 7b4:	e3a01000 	mov	r1, #0
+ 7b8:	e1a04000 	mov	r4, r0
+ 7bc:	eb000045 	bl	8d8 <__call_exitprocs>
+ 7c0:	e59f3018 	ldr	r3, [pc, #24]	; 7e0 <exit+0x30>
+ 7c4:	e5930000 	ldr	r0, [r3]
+ 7c8:	e590303c 	ldr	r3, [r0, #60]	; 0x3c
+ 7cc:	e3530000 	cmp	r3, #0
+ 7d0:	11a0e00f 	movne	lr, pc
+ 7d4:	112fff13 	bxne	r3
+ 7d8:	e1a00004 	mov	r0, r4
+ 7dc:	eb0000c9 	bl	b08 <_exit>
+ 7e0:	00000bc8 	.word	0x00000bc8
 
-00000960 <__cs3_isr_dabort>:
- 960:	eafffffe 	b	960 <__cs3_isr_dabort>
+000007e4 <__register_exitproc>:
+ 7e4:	e59fc0e4 	ldr	r12, [pc, #228]	; 8d0 <__register_exitproc+0xec>
+ 7e8:	e92d41f0 	push	{r4, r5, r6, r7, r8, lr}
+ 7ec:	e59c4000 	ldr	r4, [r12]
+ 7f0:	e594c148 	ldr	r12, [r4, #328]	; 0x148
+ 7f4:	e35c0000 	cmp	r12, #0
+ 7f8:	0284cf53 	addeq	r12, r4, #332	; 0x14c
+ 7fc:	e59c5004 	ldr	r5, [r12, #4]
+ 800:	0584c148 	streq	r12, [r4, #328]	; 0x148
+ 804:	e355001f 	cmp	r5, #31
+ 808:	e24dd010 	sub	sp, sp, #16
+ 80c:	e1a06000 	mov	r6, r0
+ 810:	da000015 	ble	86c <__register_exitproc+0x88>
+ 814:	e59f00b8 	ldr	r0, [pc, #184]	; 8d4 <__register_exitproc+0xf0>
+ 818:	e3500000 	cmp	r0, #0
+ 81c:	1a000001 	bne	828 <__register_exitproc+0x44>
+ 820:	e3e00000 	mvn	r0, #0
+ 824:	ea000018 	b	88c <__register_exitproc+0xa8>
+ 828:	e3a00e19 	mov	r0, #400	; 0x190
+ 82c:	e58d100c 	str	r1, [sp, #12]
+ 830:	e58d2008 	str	r2, [sp, #8]
+ 834:	e58d3004 	str	r3, [sp, #4]
+ 838:	e320f000 	nop	{0}
+ 83c:	e250c000 	subs	r12, r0, #0
+ 840:	e59d100c 	ldr	r1, [sp, #12]
+ 844:	e59d2008 	ldr	r2, [sp, #8]
+ 848:	e59d3004 	ldr	r3, [sp, #4]
+ 84c:	0afffff3 	beq	820 <__register_exitproc+0x3c>
+ 850:	e5945148 	ldr	r5, [r4, #328]	; 0x148
+ 854:	e3a00000 	mov	r0, #0
+ 858:	e58c0004 	str	r0, [r12, #4]
+ 85c:	e58c5000 	str	r5, [r12]
+ 860:	e584c148 	str	r12, [r4, #328]	; 0x148
+ 864:	e58c0188 	str	r0, [r12, #392]	; 0x188
+ 868:	e58c018c 	str	r0, [r12, #396]	; 0x18c
+ 86c:	e3560000 	cmp	r6, #0
+ 870:	e59c4004 	ldr	r4, [r12, #4]
+ 874:	1a000007 	bne	898 <__register_exitproc+0xb4>
+ 878:	e2843002 	add	r3, r4, #2
+ 87c:	e2844001 	add	r4, r4, #1
+ 880:	e78c1103 	str	r1, [r12, r3, lsl #2]
+ 884:	e58c4004 	str	r4, [r12, #4]
+ 888:	e3a00000 	mov	r0, #0
+ 88c:	e28dd010 	add	sp, sp, #16
+ 890:	e8bd41f0 	pop	{r4, r5, r6, r7, r8, lr}
+ 894:	e12fff1e 	bx	lr
+ 898:	e3a00001 	mov	r0, #1
+ 89c:	e1a00410 	lsl	r0, r0, r4
+ 8a0:	e08c8104 	add	r8, r12, r4, lsl #2
+ 8a4:	e3560002 	cmp	r6, #2
+ 8a8:	e59c7188 	ldr	r7, [r12, #392]	; 0x188
+ 8ac:	e5883108 	str	r3, [r8, #264]	; 0x108
+ 8b0:	059c318c 	ldreq	r3, [r12, #396]	; 0x18c
+ 8b4:	e1877000 	orr	r7, r7, r0
+ 8b8:	01830000 	orreq	r0, r3, r0
+ 8bc:	e1a05008 	mov	r5, r8
+ 8c0:	e5882088 	str	r2, [r8, #136]	; 0x88
+ 8c4:	e58c7188 	str	r7, [r12, #392]	; 0x188
+ 8c8:	058c018c 	streq	r0, [r12, #396]	; 0x18c
+ 8cc:	eaffffe9 	b	878 <__register_exitproc+0x94>
+ 8d0:	00000bc8 	.word	0x00000bc8
+ 8d4:	00000000 	.word	0x00000000
 
-00000964 <__cs3_isr_irq>:
- 964:	eafffffe 	b	964 <__cs3_isr_irq>
+000008d8 <__call_exitprocs>:
+ 8d8:	e92d4ff0 	push	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 8dc:	e59f3168 	ldr	r3, [pc, #360]	; a4c <__call_exitprocs+0x174>
+ 8e0:	e5933000 	ldr	r3, [r3]
+ 8e4:	e24dd014 	sub	sp, sp, #20
+ 8e8:	e58d3004 	str	r3, [sp, #4]
+ 8ec:	e2833f52 	add	r3, r3, #328	; 0x148
+ 8f0:	e58d0008 	str	r0, [sp, #8]
+ 8f4:	e58d300c 	str	r3, [sp, #12]
+ 8f8:	e1a07001 	mov	r7, r1
+ 8fc:	e3a08001 	mov	r8, #1
+ 900:	e59d3004 	ldr	r3, [sp, #4]
+ 904:	e5936148 	ldr	r6, [r3, #328]	; 0x148
+ 908:	e3560000 	cmp	r6, #0
+ 90c:	e59db00c 	ldr	r11, [sp, #12]
+ 910:	0a000033 	beq	9e4 <__call_exitprocs+0x10c>
+ 914:	e5965004 	ldr	r5, [r6, #4]
+ 918:	e2554001 	subs	r4, r5, #1
+ 91c:	5286a088 	addpl	r10, r6, #136	; 0x88
+ 920:	5285501f 	addpl	r5, r5, #31
+ 924:	508a5105 	addpl	r5, r10, r5, lsl #2
+ 928:	5a000007 	bpl	94c <__call_exitprocs+0x74>
+ 92c:	ea000029 	b	9d8 <__call_exitprocs+0x100>
+ 930:	e5953000 	ldr	r3, [r5]
+ 934:	e1530007 	cmp	r3, r7
+ 938:	0a000005 	beq	954 <__call_exitprocs+0x7c>
+ 93c:	e2444001 	sub	r4, r4, #1
+ 940:	e3740001 	cmn	r4, #1
+ 944:	e2455004 	sub	r5, r5, #4
+ 948:	0a000022 	beq	9d8 <__call_exitprocs+0x100>
+ 94c:	e3570000 	cmp	r7, #0
+ 950:	1afffff6 	bne	930 <__call_exitprocs+0x58>
+ 954:	e5963004 	ldr	r3, [r6, #4]
+ 958:	e06a2005 	rsb	r2, r10, r5
+ 95c:	e2433001 	sub	r3, r3, #1
+ 960:	e0862002 	add	r2, r6, r2
+ 964:	e1530004 	cmp	r3, r4
+ 968:	e5123078 	ldr	r3, [r2, #-120]	; 0xffffff88
+ 96c:	13a01000 	movne	r1, #0
+ 970:	05864004 	streq	r4, [r6, #4]
+ 974:	15021078 	strne	r1, [r2, #-120]	; 0xffffff88
+ 978:	e3530000 	cmp	r3, #0
+ 97c:	0affffee 	beq	93c <__call_exitprocs+0x64>
+ 980:	e1a02418 	lsl	r2, r8, r4
+ 984:	e5961188 	ldr	r1, [r6, #392]	; 0x188
+ 988:	e1120001 	tst	r2, r1
+ 98c:	e5969004 	ldr	r9, [r6, #4]
+ 990:	0a000016 	beq	9f0 <__call_exitprocs+0x118>
+ 994:	e596118c 	ldr	r1, [r6, #396]	; 0x18c
+ 998:	e1120001 	tst	r2, r1
+ 99c:	1a000016 	bne	9fc <__call_exitprocs+0x124>
+ 9a0:	e59d0008 	ldr	r0, [sp, #8]
+ 9a4:	e5151080 	ldr	r1, [r5, #-128]	; 0xffffff80
+ 9a8:	e1a0e00f 	mov	lr, pc
+ 9ac:	e12fff13 	bx	r3
+ 9b0:	e5963004 	ldr	r3, [r6, #4]
+ 9b4:	e1530009 	cmp	r3, r9
+ 9b8:	1affffd0 	bne	900 <__call_exitprocs+0x28>
+ 9bc:	e59b3000 	ldr	r3, [r11]
+ 9c0:	e1530006 	cmp	r3, r6
+ 9c4:	1affffcd 	bne	900 <__call_exitprocs+0x28>
+ 9c8:	e2444001 	sub	r4, r4, #1
+ 9cc:	e3740001 	cmn	r4, #1
+ 9d0:	e2455004 	sub	r5, r5, #4
+ 9d4:	1affffdc 	bne	94c <__call_exitprocs+0x74>
+ 9d8:	e59f1070 	ldr	r1, [pc, #112]	; a50 <__call_exitprocs+0x178>
+ 9dc:	e3510000 	cmp	r1, #0
+ 9e0:	1a000009 	bne	a0c <__call_exitprocs+0x134>
+ 9e4:	e28dd014 	add	sp, sp, #20
+ 9e8:	e8bd4ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+ 9ec:	e12fff1e 	bx	lr
+ 9f0:	e1a0e00f 	mov	lr, pc
+ 9f4:	e12fff13 	bx	r3
+ 9f8:	eaffffec 	b	9b0 <__call_exitprocs+0xd8>
+ 9fc:	e5150080 	ldr	r0, [r5, #-128]	; 0xffffff80
+ a00:	e1a0e00f 	mov	lr, pc
+ a04:	e12fff13 	bx	r3
+ a08:	eaffffe8 	b	9b0 <__call_exitprocs+0xd8>
+ a0c:	e5963004 	ldr	r3, [r6, #4]
+ a10:	e3530000 	cmp	r3, #0
+ a14:	e5963000 	ldr	r3, [r6]
+ a18:	1a000008 	bne	a40 <__call_exitprocs+0x168>
+ a1c:	e3530000 	cmp	r3, #0
+ a20:	0a000006 	beq	a40 <__call_exitprocs+0x168>
+ a24:	e1a00006 	mov	r0, r6
+ a28:	e58b3000 	str	r3, [r11]
+ a2c:	e320f000 	nop	{0}
+ a30:	e59b6000 	ldr	r6, [r11]
+ a34:	e3560000 	cmp	r6, #0
+ a38:	1affffb5 	bne	914 <__call_exitprocs+0x3c>
+ a3c:	eaffffe8 	b	9e4 <__call_exitprocs+0x10c>
+ a40:	e1a0b006 	mov	r11, r6
+ a44:	e1a06003 	mov	r6, r3
+ a48:	eafffff9 	b	a34 <__call_exitprocs+0x15c>
+ a4c:	00000bc8 	.word	0x00000bc8
+ a50:	00000000 	.word	0x00000000
 
-00000968 <__cs3_isr_fiq>:
- 968:	eafffffe 	b	968 <__cs3_isr_fiq>
+00000a54 <register_fini>:
+ a54:	e92d4008 	push	{r3, lr}
+ a58:	e59f3010 	ldr	r3, [pc, #16]	; a70 <register_fini+0x1c>
+ a5c:	e3530000 	cmp	r3, #0
+ a60:	159f000c 	ldrne	r0, [pc, #12]	; a74 <register_fini+0x20>
+ a64:	1bffff49 	blne	790 <atexit>
+ a68:	e8bd4008 	pop	{r3, lr}
+ a6c:	e12fff1e 	bx	lr
+ a70:	00000bf0 	.word	0x00000bf0
+ a74:	00000a78 	.word	0x00000a78
 
-0000096c <__libc_init_array>:
- 96c:	e92d4070 	push	{r4, r5, r6, lr}
- 970:	e59f506c 	ldr	r5, [pc, #108]	; 9e4 <__libc_init_array+0x78>
- 974:	e59f606c 	ldr	r6, [pc, #108]	; 9e8 <__libc_init_array+0x7c>
- 978:	e0656006 	rsb	r6, r5, r6
- 97c:	e1b06146 	asrs	r6, r6, #2
- 980:	12455004 	subne	r5, r5, #4
- 984:	13a04000 	movne	r4, #0
- 988:	0a000005 	beq	9a4 <__libc_init_array+0x38>
- 98c:	e5b53004 	ldr	r3, [r5, #4]!
- 990:	e2844001 	add	r4, r4, #1
- 994:	e1a0e00f 	mov	lr, pc
- 998:	e12fff13 	bx	r3
- 99c:	e1560004 	cmp	r6, r4
- 9a0:	1afffff9 	bne	98c <__libc_init_array+0x20>
- 9a4:	e59f5040 	ldr	r5, [pc, #64]	; 9ec <__libc_init_array+0x80>
- 9a8:	e59f6040 	ldr	r6, [pc, #64]	; 9f0 <__libc_init_array+0x84>
- 9ac:	e0656006 	rsb	r6, r5, r6
- 9b0:	eb00001e 	bl	a30 <_init>
- 9b4:	e1b06146 	asrs	r6, r6, #2
- 9b8:	12455004 	subne	r5, r5, #4
- 9bc:	13a04000 	movne	r4, #0
- 9c0:	0a000005 	beq	9dc <__libc_init_array+0x70>
- 9c4:	e5b53004 	ldr	r3, [r5, #4]!
- 9c8:	e2844001 	add	r4, r4, #1
- 9cc:	e1a0e00f 	mov	lr, pc
- 9d0:	e12fff13 	bx	r3
- 9d4:	e1560004 	cmp	r6, r4
- 9d8:	1afffff9 	bne	9c4 <__libc_init_array+0x58>
- 9dc:	e8bd4070 	pop	{r4, r5, r6, lr}
- 9e0:	e12fff1e 	bx	lr
- 9e4:	00000a48 	.word	0x00000a48
- 9e8:	00000a48 	.word	0x00000a48
- 9ec:	00000a48 	.word	0x00000a48
- 9f0:	00000a50 	.word	0x00000a50
+00000a78 <__libc_fini_array>:
+ a78:	e92d4038 	push	{r3, r4, r5, lr}
+ a7c:	e59f5030 	ldr	r5, [pc, #48]	; ab4 <__libc_fini_array+0x3c>
+ a80:	e59f4030 	ldr	r4, [pc, #48]	; ab8 <__libc_fini_array+0x40>
+ a84:	e0654004 	rsb	r4, r5, r4
+ a88:	e1b04144 	asrs	r4, r4, #2
+ a8c:	10855104 	addne	r5, r5, r4, lsl #2
+ a90:	0a000004 	beq	aa8 <__libc_fini_array+0x30>
+ a94:	e5353004 	ldr	r3, [r5, #-4]!
+ a98:	e1a0e00f 	mov	lr, pc
+ a9c:	e12fff13 	bx	r3
+ aa0:	e2544001 	subs	r4, r4, #1
+ aa4:	1afffffa 	bne	a94 <__libc_fini_array+0x1c>
+ aa8:	eb000050 	bl	bf0 <__libc_fini>
+ aac:	e8bd4038 	pop	{r3, r4, r5, lr}
+ ab0:	e12fff1e 	bx	lr
+ ab4:	00000c08 	.word	0x00000c08
+ ab8:	00000c0c 	.word	0x00000c0c
+
+00000abc <__cs3_premain>:
+ abc:	e92d4008 	push	{r3, lr}
+ ac0:	eb00001d 	bl	b3c <__libc_init_array>
+ ac4:	e59f3030 	ldr	r3, [pc, #48]	; afc <__cs3_premain+0x40>
+ ac8:	e3530000 	cmp	r3, #0
+ acc:	15930000 	ldrne	r0, [r3]
+ ad0:	01a00003 	moveq	r0, r3
+ ad4:	e59f3024 	ldr	r3, [pc, #36]	; b00 <__cs3_premain+0x44>
+ ad8:	e3530000 	cmp	r3, #0
+ adc:	15931000 	ldrne	r1, [r3]
+ ae0:	01a01003 	moveq	r1, r3
+ ae4:	e3a02000 	mov	r2, #0
+ ae8:	ebfffeab 	bl	59c <main>
+ aec:	e59f3010 	ldr	r3, [pc, #16]	; b04 <__cs3_premain+0x48>
+ af0:	e3530000 	cmp	r3, #0
+ af4:	1bffff2d 	blne	7b0 <exit>
+ af8:	eafffffe 	b	af8 <__cs3_premain+0x3c>
+	...
+ b04:	000007b0 	.word	0x000007b0
+
+00000b08 <_exit>:
+ b08:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+ b0c:	e3a00018 	mov	r0, #24
+ b10:	e59f1004 	ldr	r1, [pc, #4]	; b1c <_exit+0x14>
+ b14:	ef123456 	svc	0x00123456
+ b18:	eafffffe 	b	b18 <_exit+0x10>
+ b1c:	00020026 	.word	0x00020026
+
+00000b20 <__cs3_isr_interrupt>:
+ b20:	eafffffe 	b	b20 <__cs3_isr_interrupt>
+
+00000b24 <__cs3_isr_undef>:
+ b24:	eafffffe 	b	b24 <__cs3_isr_undef>
+
+00000b28 <__cs3_isr_swi>:
+ b28:	eafffffe 	b	b28 <__cs3_isr_swi>
+
+00000b2c <__cs3_isr_pabort>:
+ b2c:	eafffffe 	b	b2c <__cs3_isr_pabort>
+
+00000b30 <__cs3_isr_dabort>:
+ b30:	eafffffe 	b	b30 <__cs3_isr_dabort>
+
+00000b34 <__cs3_isr_irq>:
+ b34:	eafffffe 	b	b34 <__cs3_isr_irq>
+
+00000b38 <__cs3_isr_fiq>:
+ b38:	eafffffe 	b	b38 <__cs3_isr_fiq>
+
+00000b3c <__libc_init_array>:
+ b3c:	e92d4070 	push	{r4, r5, r6, lr}
+ b40:	e59f506c 	ldr	r5, [pc, #108]	; bb4 <__libc_init_array+0x78>
+ b44:	e59f606c 	ldr	r6, [pc, #108]	; bb8 <__libc_init_array+0x7c>
+ b48:	e0656006 	rsb	r6, r5, r6
+ b4c:	e1b06146 	asrs	r6, r6, #2
+ b50:	12455004 	subne	r5, r5, #4
+ b54:	13a04000 	movne	r4, #0
+ b58:	0a000005 	beq	b74 <__libc_init_array+0x38>
+ b5c:	e5b53004 	ldr	r3, [r5, #4]!
+ b60:	e2844001 	add	r4, r4, #1
+ b64:	e1a0e00f 	mov	lr, pc
+ b68:	e12fff13 	bx	r3
+ b6c:	e1560004 	cmp	r6, r4
+ b70:	1afffff9 	bne	b5c <__libc_init_array+0x20>
+ b74:	e59f5040 	ldr	r5, [pc, #64]	; bbc <__libc_init_array+0x80>
+ b78:	e59f6040 	ldr	r6, [pc, #64]	; bc0 <__libc_init_array+0x84>
+ b7c:	e0656006 	rsb	r6, r5, r6
+ b80:	eb000012 	bl	bd0 <_init>
+ b84:	e1b06146 	asrs	r6, r6, #2
+ b88:	12455004 	subne	r5, r5, #4
+ b8c:	13a04000 	movne	r4, #0
+ b90:	0a000005 	beq	bac <__libc_init_array+0x70>
+ b94:	e5b53004 	ldr	r3, [r5, #4]!
+ b98:	e2844001 	add	r4, r4, #1
+ b9c:	e1a0e00f 	mov	lr, pc
+ ba0:	e12fff13 	bx	r3
+ ba4:	e1560004 	cmp	r6, r4
+ ba8:	1afffff9 	bne	b94 <__libc_init_array+0x58>
+ bac:	e8bd4070 	pop	{r4, r5, r6, lr}
+ bb0:	e12fff1e 	bx	lr
+ bb4:	00000be8 	.word	0x00000be8
+ bb8:	00000be8 	.word	0x00000be8
+ bbc:	00000be8 	.word	0x00000be8
+ bc0:	00000bf0 	.word	0x00000bf0
 
 Disassembly of section .rodata:
 
-000009f8 <_global_impure_ptr-0x30>:
+00000bc8 <_global_impure_ptr>:
+ bc8:	00000c30 00000043                       0...C...
+
+00000bd0 <_init>:
+ bd0:	e1a0c00d 	mov	r12, sp
+ bd4:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+ bd8:	e24cb004 	sub	r11, r12, #4
+ bdc:	e24bd028 	sub	sp, r11, #40	; 0x28
+ be0:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+ be4:	e12fff1e 	bx	lr
+
+00000be8 <__init_array_start>:
+ be8:	00000a54 	.word	0x00000a54
+
+00000bec <__frame_dummy_init_array_entry>:
+ bec:	000001fc                                ....
+
+00000bf0 <__libc_fini>:
+ bf0:	e1a0c00d 	mov	r12, sp
+ bf4:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
+ bf8:	e24cb004 	sub	r11, r12, #4
+ bfc:	e24bd028 	sub	sp, r11, #40	; 0x28
+ c00:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
+ c04:	e12fff1e 	bx	lr
+
+00000c08 <__fini_array_start>:
+ c08:	000001b8 	.word	0x000001b8
+
+00000c0c <__cs3_regions>:
 	...
- a04:	00000001 	.word	0x00000001
-	...
- a10:	00000002 	.word	0x00000002
-	...
- a1c:	00000003 	.word	0x00000003
-	...
-
-00000a28 <_global_impure_ptr>:
- a28:	00000a90 00000043                       ....C...
-
-00000a30 <_init>:
- a30:	e1a0c00d 	mov	r12, sp
- a34:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
- a38:	e24cb004 	sub	r11, r12, #4
- a3c:	e24bd028 	sub	sp, r11, #40	; 0x28
- a40:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
- a44:	e12fff1e 	bx	lr
-
-00000a48 <__init_array_start>:
- a48:	00000884 	.word	0x00000884
-
-00000a4c <__frame_dummy_init_array_entry>:
- a4c:	00000208                                ....
-
-00000a50 <__libc_fini>:
- a50:	e1a0c00d 	mov	r12, sp
- a54:	e92ddff8 	push	{r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, lr, pc}
- a58:	e24cb004 	sub	r11, r12, #4
- a5c:	e24bd028 	sub	sp, r11, #40	; 0x28
- a60:	e89d6ff0 	ldm	sp, {r4, r5, r6, r7, r8, r9, r10, r11, sp, lr}
- a64:	e12fff1e 	bx	lr
-
-00000a68 <__fini_array_start>:
- a68:	000001c4 	.word	0x000001c4
-
-00000a6c <__cs3_regions>:
-	...
- a78:	00000ec0 	.word	0x00000ec0
- a7c:	00000050 	.word	0x00000050
+ c18:	00001060 	.word	0x00001060
+ c1c:	00000098 	.word	0x00000098
