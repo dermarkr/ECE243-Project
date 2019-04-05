@@ -1,5 +1,5 @@
 
-W:/ECE243_Computer_Organization/Labs/ECE243-Project-master/ECE243-Project-master/draw.axf:     file format elf32-littlearm
+C:/Users/Bob/Desktop/ECE243_Computer_Organization/Labs/ECE243-Project/draw.axf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
@@ -544,7 +544,7 @@ void draw()
  47c:	e3403000 	movt	r3, #0
  480:	e5832000 	str	r2, [r3]
 	
-	volatile int * tower_ptr = (int *) 0x15c;
+	volatile int * tower_ptr = (int *) 0x708;
 	
 	clear_screen();
  484:	ebffffd9 	bl	3f0 <clear_screen>
@@ -576,10 +576,11 @@ void draw()
  4bc:	e3540f4f 	cmp	r4, #316	; 0x13c
  4c0:	1afffff6 	bne	4a0 <draw+0x3c>
  4c4:	e3a02000 	mov	r2, #0
- 4c8:	e3a03f57 	mov	r3, #348	; 0x15c
+ 4c8:	e3003708 	movw	r3, #1800	; 0x708
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
+	//build tower array using RAM locations
 	for(i = 0; i < 10; i++){
 		tower[i][0] = *tower_ptr;
  4cc:	e301c07c 	movw	r12, #4220	; 0x107c
@@ -588,128 +589,117 @@ void draw()
  4d8:	e28c1004 	add	r1, r12, #4
  4dc:	e7820001 	str	r0, [r2, r1]
  4e0:	e282200c 	add	r2, r2, #12
-	//draw pegs
 	for(i = 0; i < 3; i++){
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
+	//build tower array using RAM locations
 	for(i = 0; i < 10; i++){
- 4e4:	e3530f61 	cmp	r3, #388	; 0x184
+ 4e4:	e3530e73 	cmp	r3, #1840	; 0x730
  4e8:	1afffff9 	bne	4d4 <draw+0x70>
- 4ec:	e1a02001 	mov	r2, r1
- 4f0:	e3a03d06 	mov	r3, #384	; 0x180
+ 4ec:	e1a06001 	mov	r6, r1
+ 4f0:	e1a02001 	mov	r2, r1
+		tower_ptr += 1;
 	}
 	
-	tower_ptr = (int *) 0x180;
+	tower_ptr = (int *) 0x730;
 	
 	for(i = 0; i < 10; i++){
+ 4f4:	e3000758 	movw	r0, #1880	; 0x758
 		tower[i][1] = *tower_ptr;
- 4f4:	e4930004 	ldr	r0, [r3], #4
- 4f8:	e5810004 	str	r0, [r1, #4]
- 4fc:	e281100c 	add	r1, r1, #12
+ 4f8:	e4931004 	ldr	r1, [r3], #4
+ 4fc:	e5821004 	str	r1, [r2, #4]
+ 500:	e282200c 	add	r2, r2, #12
 		tower_ptr += 1;
 	}
 	
-	tower_ptr = (int *) 0x180;
+	tower_ptr = (int *) 0x730;
 	
 	for(i = 0; i < 10; i++){
- 500:	e3530f6a 	cmp	r3, #424	; 0x1a8
- 504:	1afffffa 	bne	4f4 <draw+0x90>
+ 504:	e1530000 	cmp	r3, r0
+ 508:	1afffffa 	bne	4f8 <draw+0x94>
+ 50c:	e1a02006 	mov	r2, r6
 	}
 	
-	tower_ptr = (int *) 0x1a8;
+	tower_ptr = (int *) 0x758;
 	
 	for(i = 0; i < 10; i++){
-		tower[i][1] = *tower_ptr;
- 508:	e4931004 	ldr	r1, [r3], #4
- 50c:	e5821004 	str	r1, [r2, #4]
- 510:	e282200c 	add	r2, r2, #12
+		tower[i][2] = *tower_ptr;
+ 510:	e4931004 	ldr	r1, [r3], #4
+ 514:	e5821008 	str	r1, [r2, #8]
+ 518:	e282200c 	add	r2, r2, #12
 		tower_ptr += 1;
 	}
 	
-	tower_ptr = (int *) 0x1a8;
+	tower_ptr = (int *) 0x758;
 	
 	for(i = 0; i < 10; i++){
- 514:	e3530e1d 	cmp	r3, #464	; 0x1d0
- 518:	1afffffa 	bne	508 <draw+0xa4>
- 51c:	e3a0704f 	mov	r7, #79	; 0x4f
- 520:	e3a06000 	mov	r6, #0
-	while((status & 0x01) != 0){
-		status = *(pixel_ctrl_ptr +3);
-	}
-}
-
-void draw()
- 524:	e59fb06c 	ldr	r11, [pc, #108]	; 598 <draw+0x134>
+ 51c:	e3530d1e 	cmp	r3, #1920	; 0x780
+ 520:	1afffffa 	bne	510 <draw+0xac>
+ 524:	e3a0704f 	mov	r7, #79	; 0x4f
 	
 	
 	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
+		for(j = 0; j < 10; j++){
 			if(tower[j][i] != 0){
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 528:	e3019303 	movw	r9, #4867	; 0x1303
- 52c:	e3a0a006 	mov	r10, #6
- 530:	ea000012 	b	580 <draw+0x11c>
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (10-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+ 528:	e3a0b0b3 	mov	r11, #179	; 0xb3
+ 52c:	e3019303 	movw	r9, #4867	; 0x1303
+ 530:	e3a0a006 	mov	r10, #6
+ 534:	ea000012 	b	584 <draw+0x120>
 	}
 	
 	
 	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
+		for(j = 0; j < 10; j++){
 			if(tower[j][i] != 0){
- 534:	e5950000 	ldr	r0, [r5]
- 538:	e3500000 	cmp	r0, #0
- 53c:	0a000007 	beq	560 <draw+0xfc>
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 540:	e1a02180 	lsl	r2, r0, #3
- 544:	e0030099 	mul	r3, r9, r0
- 548:	e58d3000 	str	r3, [sp]
- 54c:	e0480100 	sub	r0, r8, r0, lsl #2
- 550:	e1a01004 	mov	r1, r4
- 554:	e2822003 	add	r2, r2, #3
- 558:	e1a0300a 	mov	r3, r10
- 55c:	ebffff8f 	bl	3a0 <draw_rectangle>
- 560:	e285500c 	add	r5, r5, #12
- 564:	e2844006 	add	r4, r4, #6
+ 538:	e7960004 	ldr	r0, [r6, r4]
+ 53c:	e3500000 	cmp	r0, #0
+ 540:	0a000007 	beq	564 <draw+0x100>
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (10-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+ 544:	e1a02180 	lsl	r2, r0, #3
+ 548:	e0030099 	mul	r3, r9, r0
+ 54c:	e58d3000 	str	r3, [sp]
+ 550:	e0480100 	sub	r0, r8, r0, lsl #2
+ 554:	e1a01005 	mov	r1, r5
+ 558:	e2822003 	add	r2, r2, #3
+ 55c:	e1a0300a 	mov	r3, r10
+ 560:	ebffff8e 	bl	3a0 <draw_rectangle>
+ 564:	e284400c 	add	r4, r4, #12
+ 568:	e2855006 	add	r5, r5, #6
 		tower_ptr += 1;
 	}
 	
 	
 	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
- 568:	e35400ef 	cmp	r4, #239	; 0xef
- 56c:	1afffff0 	bne	534 <draw+0xd0>
-		tower[i][1] = *tower_ptr;
+		for(j = 0; j < 10; j++){
+ 56c:	e3540078 	cmp	r4, #120	; 0x78
+ 570:	1afffff0 	bne	538 <draw+0xd4>
+ 574:	e2866004 	add	r6, r6, #4
+ 578:	e287704f 	add	r7, r7, #79	; 0x4f
+		tower[i][2] = *tower_ptr;
 		tower_ptr += 1;
 	}
 	
 	
 	for(i = 0; i < 3; i++){
- 570:	e2866001 	add	r6, r6, #1
- 574:	e287704f 	add	r7, r7, #79	; 0x4f
- 578:	e3560003 	cmp	r6, #3
- 57c:	0a000003 	beq	590 <draw+0x12c>
-		for(j = 0; j < 4; j++){
+ 57c:	e3570f4f 	cmp	r7, #316	; 0x13c
+ 580:	0a000003 	beq	594 <draw+0x130>
+		for(j = 0; j < 10; j++){
 			if(tower[j][i] != 0){
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
- 580:	e1a08007 	mov	r8, r7
-	while((status & 0x01) != 0){
-		status = *(pixel_ctrl_ptr +3);
-	}
-}
-
-void draw()
- 584:	e08b5106 	add	r5, r11, r6, lsl #2
- 588:	e3a040d7 	mov	r4, #215	; 0xd7
- 58c:	eaffffe8 	b	534 <draw+0xd0>
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (10-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+ 584:	e1a08007 	mov	r8, r7
+ 588:	e1a0500b 	mov	r5, r11
+ 58c:	e3a04000 	mov	r4, #0
+ 590:	eaffffe8 	b	538 <draw+0xd4>
 		int j = i % 10;
 		if(tower[i] != 0){
 			draw_rectangle(79 * ((i/10)+1) - width_mult*tower[i], 239 - (4-j)*disk_height, width_mult*(2* tower[i])+ peg_width, disk_height, 0x0300 * tower[i]+ 0x1000 * tower[i] + 0x3 * tower[i]);
 		}
 	} */
 }
- 590:	e28dd00c 	add	sp, sp, #12
- 594:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
- 598:	00001080 	.word	0x00001080
+ 594:	e28dd00c 	add	sp, sp, #12
+ 598:	e8bd8ff0 	pop	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
 
 0000059c <main>:
 
@@ -723,245 +713,111 @@ int main(void){
  5a4:	e8bd8008 	pop	{r3, pc}
 
 000005a8 <_start>:
-				// CMP		R3, #480
-				// BLT		FILLEMPTY
-
-				
-				
-POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
- 5a8:	e3a00f56 	mov	r0, #344	; 0x158
-				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
- 5ac:	e59f11cc 	ldr	r1, [pc, #460]	; 780 <PUSH_BUTTON_LOCATION+0x4>
-				LDR 	R1, [R1]
- 5b0:	e5911000 	ldr	r1, [r1]
-				BL		draw
- 5b4:	ebffffaa 	bl	464 <draw>
+ 5a8:	ebffffad 	bl	464 <draw>
+ 5ac:	e3a00f56 	mov	r0, #344	; 0x158
+ 5b0:	e59f11c8 	ldr	r1, [pc, #456]	; 780 <PUSH_BUTTON_LOCATION+0x4>
+ 5b4:	e5911000 	ldr	r1, [r1]
 
 000005b8 <POLLC1>:
-			
-POLLC1:			LDRB	R2, [R1]	//Loads PB values
  5b8:	e5d12000 	ldrb	r2, [r1]
-				CMP		R2, #0		//Checks if PB pressed
  5bc:	e3520000 	cmp	r2, #0
-				BEQ		POLLC1
  5c0:	0afffffc 	beq	5b8 <POLLC1>
-				CMP		R2, #0b1000 //checks if PB was valid
  5c4:	e3520008 	cmp	r2, #8
-				BEQ		POLLC1
  5c8:	0afffffa 	beq	5b8 <POLLC1>
-				STRB	R2, [R0]	//if PB pressed stored in memory
  5cc:	e5c02000 	strb	r2, [r0]
-				B		WAITPOLLC1		//goes to check for second press
  5d0:	eaffffff 	b	5d4 <WAITPOLLC1>
 
 000005d4 <WAITPOLLC1>:
-				
-WAITPOLLC1:		LDRB	R4, [R1]
  5d4:	e5d14000 	ldrb	r4, [r1]
-				CMP		R4, #0
  5d8:	e3540000 	cmp	r4, #0
-				BEQ		POLLC2
  5dc:	0a000000 	beq	5e4 <POLLC2>
-				B		WAITPOLLC1
  5e0:	eafffffb 	b	5d4 <WAITPOLLC1>
 
 000005e4 <POLLC2>:
-			
-POLLC2:			LDRB	R3, [R1]	//Loads PB values
  5e4:	e5d13000 	ldrb	r3, [r1]
-				CMP		R3, #0		//Checks if PB pressed
  5e8:	e3530000 	cmp	r3, #0
-				BEQ		POLLC2
  5ec:	0afffffc 	beq	5e4 <POLLC2>
-				CMP		R3, #0b1000 //checks if PB was valid
  5f0:	e3530008 	cmp	r3, #8
-				BEQ		POLLC2
  5f4:	0afffffa 	beq	5e4 <POLLC2>
-				STRB	R3, [R0, #1]	//if PB pressed stored in memory
  5f8:	e5c03001 	strb	r3, [r0, #1]
-				B		WAITPOLLC2		//goes to logic functions
  5fc:	eaffffff 	b	600 <WAITPOLLC2>
 
 00000600 <WAITPOLLC2>:
-				
-WAITPOLLC2:		LDRB	R4, [R1]
  600:	e5d14000 	ldrb	r4, [r1]
-				CMP		R4, #0
  604:	e3540000 	cmp	r4, #0
-				BEQ		LOGIC_START
  608:	0a000000 	beq	610 <LOGIC_START>
-				B		WAITPOLLC2
  60c:	eafffffb 	b	600 <WAITPOLLC2>
 
 00000610 <LOGIC_START>:
-
-
-LOGIC_START:	
-				//MOV		R10, #160
-
-				CMP		R2, #0b0001		//assigns R2 to the key number by checking value against masks
  610:	e3520001 	cmp	r2, #1
-				MOVEQ	R2, #0
  614:	03a02000 	moveq	r2, #0
-				CMP		R2, #0b0010
  618:	e3520002 	cmp	r2, #2
-				MOVEQ	R2, #1
  61c:	03a02001 	moveq	r2, #1
-				CMP		R2, #0b0100
  620:	e3520004 	cmp	r2, #4
-				MOVEQ	R2, #2
  624:	03a02002 	moveq	r2, #2
-				
-				//MUL 	R7, R2, R10		//Multiplies by 160 as that is the length of one row of the tower Array
-				
-				LDR R10, =COLUMN0
  628:	e59fa154 	ldr	r10, [pc, #340]	; 784 <PUSH_BUTTON_LOCATION+0x8>
-				CMP		R2, #0
  62c:	e3520000 	cmp	r2, #0
-				MOVEQ	R7, R10
  630:	01a0700a 	moveq	r7, r10
-				
-				LDR R10, =COLUMN1
  634:	e59fa14c 	ldr	r10, [pc, #332]	; 788 <PUSH_BUTTON_LOCATION+0xc>
-				CMP		R2, #1
  638:	e3520001 	cmp	r2, #1
-				MOVEQ	R7, R10
  63c:	01a0700a 	moveq	r7, r10
-				
-				LDR R10, =COLUMN2
  640:	e59fa144 	ldr	r10, [pc, #324]	; 78c <PUSH_BUTTON_LOCATION+0x10>
-				CMP		R2, #2
  644:	e3520002 	cmp	r2, #2
-				MOVEQ	R7, R10
  648:	01a0700a 	moveq	r7, r10
-				
-				CMP		R3, #0b0001		//assigns R3 to the key number by checking value against masks
  64c:	e3530001 	cmp	r3, #1
-				MOVEQ	R3, #0
  650:	03a03000 	moveq	r3, #0
-				CMP		R3, #0b0010
  654:	e3530002 	cmp	r3, #2
-				MOVEQ	R3, #1
  658:	03a03001 	moveq	r3, #1
-				CMP		R3, #0b0100
  65c:	e3530004 	cmp	r3, #4
-				MOVEQ	R3, #2
  660:	03a03002 	moveq	r3, #2
-				
-				//MUL		R8, R3, R10			//Multiplies by 40 as that is the length of one row of the tower Array
-
-				LDR R10, =COLUMN0
  664:	e59fa118 	ldr	r10, [pc, #280]	; 784 <PUSH_BUTTON_LOCATION+0x8>
-				CMP		R3, #0
  668:	e3530000 	cmp	r3, #0
-				MOVEQ	R8, R10
  66c:	01a0800a 	moveq	r8, r10
-				
-				LDR R10, =COLUMN1
  670:	e59fa110 	ldr	r10, [pc, #272]	; 788 <PUSH_BUTTON_LOCATION+0xc>
-				CMP		R3, #1
  674:	e3530001 	cmp	r3, #1
-				MOVEQ	R8, R10
  678:	01a0800a 	moveq	r8, r10
-				
-				LDR R10, =COLUMN2
  67c:	e59fa108 	ldr	r10, [pc, #264]	; 78c <PUSH_BUTTON_LOCATION+0x10>
-				CMP		R3, #2
  680:	e3530002 	cmp	r3, #2
-				MOVEQ	R8, R10
  684:	01a0800a 	moveq	r8, r10
-				
-				
-				ADD		R9, R7, #40
  688:	e2879028 	add	r9, r7, #40	; 0x28
 
 0000068c <CHECK_TOP_C1>:
-				//ADD		R6, R2, #1		//setting limit to column
-				//MUL		R9, R6, R10		//for example, if r2 was column 0, then r6 = 1, r9 = 1 * 160 = 160 = the start address of
-											//the second column
-				//ADD		R9, #16		//potentially incorrect offset
-CHECK_TOP_C1:	
-				CMP		R7, R9			//checking if end of column was reached
  68c:	e1570009 	cmp	r7, r9
-				BGE		POLLING_START	//it end of column reached buttom press was invalid and returning to polling
  690:	aaffffc4 	bge	5a8 <_start>
-				LDR		R4, [R7]	//checking disk value 
  694:	e5974000 	ldr	r4, [r7]
-				ADD		R7, #4
  698:	e2877004 	add	r7, r7, #4
-				CMP		R4, #0			//if disk value is not zero then that is the top disk on the column
  69c:	e3540000 	cmp	r4, #0
-				BEQ		CHECK_TOP_C1	//if disk value is zero cycles throught checktop again for the next memory location
  6a0:	0afffff9 	beq	68c <CHECK_TOP_C1>
-				SUB		R7, #4
  6a4:	e2477004 	sub	r7, r7, #4
-				
-				
-				ADD		R9, R8, #40
  6a8:	e2889028 	add	r9, r8, #40	; 0x28
 
 000006ac <CHECK_TOP_C2>:
-											//the second column
-				//ADD		R9, #16		//potentially incorrect offset
-				
-				
-CHECK_TOP_C2:	
-				CMP		R8, R9			//checking if end of column was reached
  6ac:	e1580009 	cmp	r8, r9
-				BGE		C2_EMPTY		//if so going to C2_EMPTY to set disk size to 0
  6b0:	aa00000c 	bge	6e8 <C2_EMPTY>
-				LDR		R5, [R8]	//checking disk value 
  6b4:	e5985000 	ldr	r5, [r8]
-				ADD		R8, #4
  6b8:	e2888004 	add	r8, r8, #4
-				CMP		R5, #0			//if disk value is not zero then that is the top disk on the column
  6bc:	e3550000 	cmp	r5, #0
-				BEQ		CHECK_TOP_C2	//if disk value is zero cycles throught checktop again for the next memory location
  6c0:	0afffff9 	beq	6ac <CHECK_TOP_C2>
 
 000006c4 <CHECK_LEGAL>:
-				
-//the following subroutine checks legality of the move that the user requested
-CHECK_LEGAL:	MOV		R1, #0
  6c4:	e3a01000 	mov	r1, #0
-				CMP		R5, #0	
  6c8:	e3550000 	cmp	r5, #0
-				BEQ		MOVING_EMPTY
  6cc:	0a000007 	beq	6f0 <MOVING_EMPTY>
-				
-				CMP		R4, R5			//checks if the disk being moved is smaller than the one its being moved on top of
  6d0:	e1540005 	cmp	r4, r5
-				BGT		POLLING_START	//if not the move is invalid and it just back to polling
  6d4:	caffffb3 	bgt	5a8 <_start>
-				
-				STR		R1, [R7]		//moving disks
  6d8:	e5871000 	str	r1, [r7]
-				SUB		R8, #8
  6dc:	e2488008 	sub	r8, r8, #8
-				STR		R4, [R8]
  6e0:	e5884000 	str	r4, [r8]
-				B		POLLING_START			//drawing new positions to screen
  6e4:	eaffffaf 	b	5a8 <_start>
 
 000006e8 <C2_EMPTY>:
-				
-//the following subroutine does (unnecessary) operations when a column that is being moved to is empty				
-C2_EMPTY:		MOV		R5, #0			//ensuring a value is stored in r5(for legality)
  6e8:	e3a05000 	mov	r5, #0
-				//SUB		R8, R8, #16		//potentially incorrect thing
-				B		CHECK_LEGAL
  6ec:	eafffff4 	b	6c4 <CHECK_LEGAL>
 
 000006f0 <MOVING_EMPTY>:
-
-//the following subroutine moves a disk into an empty column
-MOVING_EMPTY:	SUB		R8, #4
  6f0:	e2488004 	sub	r8, r8, #4
-				STR		R4, [R8]
  6f4:	e5884000 	str	r4, [r8]
-				STR		R5, [R7]
  6f8:	e5875000 	str	r5, [r7]
-				B		POLLING_START
  6fc:	eaffffa9 	b	5a8 <_start>
 
 00000700 <BUTTONS>:
@@ -987,29 +843,9 @@ MOVING_EMPTY:	SUB		R8, #4
 
 0000077c <PUSH_BUTTON_LOCATION>:
  77c:	ff200050 	.word	0xff200050
-				// BLT		FILLEMPTY
-
-				
-				
-POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
-				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
  780:	0000077c 	.word	0x0000077c
-				CMP		R2, #0b0100
-				MOVEQ	R2, #2
-				
-				//MUL 	R7, R2, R10		//Multiplies by 160 as that is the length of one row of the tower Array
-				
-				LDR R10, =COLUMN0
  784:	00000704 	.word	0x00000704
-				CMP		R2, #0
-				MOVEQ	R7, R10
-				
-				LDR R10, =COLUMN1
  788:	0000072c 	.word	0x0000072c
-				CMP		R2, #1
-				MOVEQ	R7, R10
-				
-				LDR R10, =COLUMN2
  78c:	00000754 	.word	0x00000754
 
 00000790 <atexit>:

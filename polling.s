@@ -34,10 +34,10 @@ _start:			//MOV		R0, #0
 
 				
 				
-POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
+POLLING_START:	BL		draw
+				MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
 				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
 				LDR 	R1, [R1]
-				BL		draw
 			
 POLLC1:			LDRB	R2, [R1]	//Loads PB values
 				CMP		R2, #0		//Checks if PB pressed

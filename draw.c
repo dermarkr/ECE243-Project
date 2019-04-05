@@ -130,7 +130,7 @@ void draw()
 	
 	pixel_buffer_start = * pixel_ctrl_ptr;
 	
-	volatile int * tower_ptr = (int *) 0x15c;
+	volatile int * tower_ptr = (int *) 0x70c;
 	
 	clear_screen();
 	
@@ -148,30 +148,31 @@ void draw()
 		draw_rectangle(79*(i+1), 79, peg_width, peg_height, 0xF4A460);
 	}
 	
+	//build tower array using RAM locations
 	for(i = 0; i < 10; i++){
 		tower[i][0] = *tower_ptr;
 		tower_ptr += 1;
 	}
 	
-	tower_ptr = (int *) 0x180;
+	//tower_ptr = (int *) 0x738;
 	
 	for(i = 0; i < 10; i++){
 		tower[i][1] = *tower_ptr;
 		tower_ptr += 1;
 	}
 	
-	tower_ptr = (int *) 0x1a8;
+	//tower_ptr = (int *) 0x754;
 	
 	for(i = 0; i < 10; i++){
-		tower[i][1] = *tower_ptr;
+		tower[i][2] = *tower_ptr;
 		tower_ptr += 1;
 	}
 	
 	
 	for(i = 0; i < 3; i++){
-		for(j = 0; j < 4; j++){
+		for(j = 0; j < 10; j++){
 			if(tower[j][i] != 0){
-				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (4-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
+				draw_rectangle(79 * (i+1) - width_mult*tower[j][i], 239 - (10-j)*disk_height, width_mult*(2* tower[j][i])+ peg_width, disk_height, 0x0300 * tower[j][i]+ 0x1000 * tower[j][i] + 0x3 * tower[j][i]);
 			}
 		}
 	}

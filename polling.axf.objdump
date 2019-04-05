@@ -1,5 +1,5 @@
 
-W:/ECE243_Computer_Organization/Labs/ECE243-Project-master/ECE243-Project-master/polling.axf:     file format elf32-littlearm
+C:/Users/Bob/Desktop/ECE243_Computer_Organization/Labs/ECE243-Project/polling.axf:     file format elf32-littlearm
 
 
 Disassembly of section .text:
@@ -18,6 +18,7 @@ POLLING_START:	MOV		R0, #BUTTONS		//assigns the location the PB presses are stor
    8:	e5911000 	ldr	r1, [r1]
 
 0000000c <POLLC1>:
+				//BL		draw
 			
 POLLC1:			LDRB	R2, [R1]	//Loads PB values
    c:	e5d12000 	ldrb	r2, [r1]
@@ -57,8 +58,8 @@ POLLC2:			LDRB	R3, [R1]	//Loads PB values
   44:	e3530008 	cmp	r3, #8
 				BEQ		POLLC2
   48:	0afffffa 	beq	38 <POLLC2>
-				STRB	R3, [R0, #8]	//if PB pressed stored in memory
-  4c:	e5c03008 	strb	r3, [r0, #8]
+				STRB	R3, [R0, #1]	//if PB pressed stored in memory
+  4c:	e5c03001 	strb	r3, [r0, #1]
 				B		WAITPOLLC2		//goes to logic functions
   50:	eaffffff 	b	54 <WAITPOLLC2>
 
@@ -211,13 +212,13 @@ CHECK_LEGAL:	MOV		R1, #0
 				
 				CMP		R4, R5			//checks if the disk being moved is smaller than the one its being moved on top of
  124:	e1540005 	cmp	r4, r5
-				BLT		POLLING_START	//if not the move is invalid and it just back to polling
- 128:	baffffb4 	blt	0 <__cs3_interrupt_vector>
+				BGT		POLLING_START	//if not the move is invalid and it just back to polling
+ 128:	caffffb4 	bgt	0 <__cs3_interrupt_vector>
 				
 				STR		R1, [R7]		//moving disks
  12c:	e5871000 	str	r1, [r7]
-				SUB		R8, #4
- 130:	e2488004 	sub	r8, r8, #4
+				SUB		R8, #8
+ 130:	e2488008 	sub	r8, r8, #8
 				STR		R4, [R8]
  134:	e5884000 	str	r4, [r8]
 				B		POLLING_START			//drawing new positions to screen
