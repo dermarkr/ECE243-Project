@@ -239,11 +239,16 @@ WAIT_RESTART:	LDRB	R4, [R1]
 				BEQ		RESTART
 				B		WAIT_RESTART
 				
-RESTART:		MOV		R0, #0
+RESTART:		LDR		R0, =SCORE
+				LDR		R1, [R0]
+				MOV		R1, #0
+				STR		R1, [R0]
+				MOV		R0, #0
 				MOV 	R4, #4	//size of an integer, in bytes
 				LDR 	R3, =COLUMN0	//address that the data is being stored in
 				MOV		R1, #1	//data being stored into arrays (to represent the disks)
 				MOV		R2, #1	//iterate value stored in array
+				
 
 BUILDTOWER:		STR		R1, [R3]
 				ADD		R3, R4

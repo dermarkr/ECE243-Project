@@ -1,7 +1,7 @@
 #include "stdlib.h"
 
 int tower[10][3];
-volatile int * tower_ptr = (int *) 0x9bc;
+volatile int * tower_ptr = (int *) 0x9cc;
 
 void draw();
 void higlight_column();
@@ -155,7 +155,7 @@ void draw()
 	int peg_height = 160;
 	int width_mult = 4;
 	
-	tower_ptr = (int *) 0x9bc;
+	tower_ptr = (int *) 0x9cc;
 	
 	//draw pegs
 	for(i = 0; i < 3; i++){
@@ -191,7 +191,7 @@ void draw()
 		}
 	}
 	
-	tower_ptr = (int *) 0x9bc;
+	tower_ptr = (int *) 0x9cc;
 	
 	//I think this should work. The problem was that we are just accessing a memory location and don't want to change the values.
 /* 	for(i = 0; i < 30; i++){
