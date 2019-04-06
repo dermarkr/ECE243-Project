@@ -4,6 +4,7 @@
 		.text			//code to poll for keybutton presses
 		.global _start
 		.extern draw
+		.extern higlight_column
 		
 //Arbitrarily decided these addresses I hope they don't do anything
 
@@ -11,31 +12,11 @@
 		
 //Need to draw to game when to program starts		
 
-_start:			//MOV		R0, #0
-				//MOV 	R4, #16	//size of an integer, in bytes
-				//MOV 	R3, #0	//address that the data is being stored in
-				//MOV		R1, #1	//data being stored into arrays (to represent the disks)
-				//MOV		R2, #1	//iterate value stored in array
-
-// BUILDTOWER:		
-				// STR		R1, [R3]
-				// ADD		R3, R4
-				// ADD		R1, R2
-				// CMP		R1, #10
-				// BLT		BUILDTOWER				
+_start:			BL		draw	
+				B		DRAW_SCORE
 				
-
-// FILLEMPTY:		
-				// STR		R0, [R3]
-				// ADD		R3, R4
-				// ADD		R1, R2
-				// CMP		R3, #480
-				// BLT		FILLEMPTY
-
-				
-				
-POLLING_START:	BL		draw
-				MOV		R0, #BUTTONS		//assigns the location the PB presses are stored		
+POLLING_START:	
+				LDR		R0, =BUTTONS		//assigns the location the PB presses are stored		
 				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
 				LDR 	R1, [R1]
 			
@@ -43,20 +24,30 @@ POLLC1:			LDRB	R2, [R1]	//Loads PB values
 				CMP		R2, #0		//Checks if PB pressed
 				BEQ		POLLC1
 				CMP		R2, #0b1000 //checks if PB was valid
-				BEQ		POLLC1
-				STRB	R2, [R0]	//if PB pressed stored in memory
+				BEQ		WAIT_RESTART
+				AND		R2, #0x0000000f
+				STR		R2, [R0]	//if PB pressed stored in memory
 				B		WAITPOLLC1		//goes to check for second press
 				
 WAITPOLLC1:		LDRB	R4, [R1]
 				CMP		R4, #0
-				BEQ		POLLC2
+				BEQ		PREPOLLC2
 				B		WAITPOLLC1
-			
-POLLC2:			LDRB	R3, [R1]	//Loads PB values
+
+PREPOLLC2:		BL		higlight_column
+				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
+				LDR		R1, [R1]
+				LDR		R0, =BUTTONS
+				LDR		R2, [R0]
+				
+POLLC2:			
+				LDRB	R3, [R1]	//Loads PB values
+				CMP		R3, R2
+				BEQ		INVALID
 				CMP		R3, #0		//Checks if PB pressed
 				BEQ		POLLC2
 				CMP		R3, #0b1000 //checks if PB was valid
-				BEQ		POLLC2
+				BEQ		WAIT_RESTART
 				STRB	R3, [R0, #1]	//if PB pressed stored in memory
 				B		WAITPOLLC2		//goes to logic functions
 				
@@ -66,7 +57,10 @@ WAITPOLLC2:		LDRB	R4, [R1]
 				B		WAITPOLLC2
 			
 			//Logic function written assuming max disk count is 10
-
+INVALID:		LDRB	R4, [R1]
+				CMP		R4, #0
+				BEQ		_start
+				B		INVALID
 
 LOGIC_START:	
 				//MOV		R10, #160
@@ -121,7 +115,7 @@ LOGIC_START:
 				//ADD		R9, #16		//potentially incorrect offset
 CHECK_TOP_C1:	
 				CMP		R7, R9			//checking if end of column was reached
-				BGE		POLLING_START	//it end of column reached buttom press was invalid and returning to polling
+				BGE		_start	//it end of column reached buttom press was invalid and returning to polling
 				LDR		R4, [R7]	//checking disk value 
 				ADD		R7, #4
 				CMP		R4, #0			//if disk value is not zero then that is the top disk on the column
@@ -152,12 +146,12 @@ CHECK_LEGAL:	MOV		R1, #0
 				BEQ		MOVING_EMPTY
 				
 				CMP		R4, R5			//checks if the disk being moved is smaller than the one its being moved on top of
-				BGT		POLLING_START	//if not the move is invalid and it just back to polling
+				BGT		_start	//if not the move is invalid and it just back to polling
 				
 				STR		R1, [R7]		//moving disks
 				SUB		R8, #8
 				STR		R4, [R8]
-				B		POLLING_START			//drawing new positions to screen
+				B		ADD_SCORE		//drawing new positions to screen
 				
 //the following subroutine does (unnecessary) operations when a column that is being moved to is empty				
 C2_EMPTY:		MOV		R5, #0			//ensuring a value is stored in r5(for legality)
@@ -168,10 +162,105 @@ C2_EMPTY:		MOV		R5, #0			//ensuring a value is stored in r5(for legality)
 MOVING_EMPTY:	SUB		R8, #4
 				STR		R4, [R8]
 				STR		R5, [R7]
+				B		ADD_SCORE
+				
+ADD_SCORE:		LDR		R0, =SCORE
+				LDR		R1, [R0]
+				ADD		R1, #1
+				STR		R1, [R0]
+				B		_start
+				
+DRAW_SCORE:		LDR		R0, =0xC900004A
+				LDR		R1, =83
+				STRB	R1, [R0]
+				ADD		R0, #1
+				LDR 	R1, =67
+				STRB	R1, [R0]
+				ADD		R0, #1
+				LDR 	R1, =79
+				STRB	R1, [R0]
+				ADD		R0, #1
+				LDR 	R1, =82
+				STRB	R1, [R0]
+				ADD		R0, #1
+				LDR 	R1, =69
+				STRB	R1, [R0]
+				LDR		R0, =0xC90000CA
+				LDR		R2, =SCORE
+				LDR		R2, [R2]
+				BL		HEX_TO_DEC
+				LDR		R1, =48
+				ADD		R6, R1
+				ADD		R5, R1
+				ADD		R4, R1
+				ADD		R3, R1
+				ADD		R2, R1
+				STRB	R6, [R0]
+				ADD		R0, #1
+				STRB	R5, [R0]
+				ADD		R0, #1
+				STRB	R4, [R0]
+				ADD		R0, #1
+				STRB	R3, [R0]
+				ADD		R0, #1
+				STRB	R2, [R0]
 				B		POLLING_START
+
+HEX_TO_DEC:		
+			MOV    	R3, #0			// Setting the quotients to zero
+			MOV	   	R4, #0
+			MOV    	R5, #0
+			MOV		R6, #0
+			LDR		R7, =10000
+DTENTHOU:	CMP    	R2, R7			// Checking if the value is greater than the Divisor to the fourth power 
+            BLT    	DTHOU			// Moving to the next function if Divisor is greater than the remaining value
+            SUB    	R2, R7			// Subtracting the divisor from the remaining value
+            ADD    	R6, #1			// incrementing Thousands value for each time through the full function
+            B      	DTENTHOU		// going back to beginning of function 
+DTHOU:		CMP    	R2, #1000		// Checking if the value is greater than the Divisor to the fourth power 
+            BLT    	DHUND			// Moving to the next function if Divisor is greater than the remaining value
+            SUB    	R2, #1000		// Subtracting the divisor from the remaining value
+            ADD    	R5, #1			// incrementing Thousands value for each time through the full function
+            B      	DTHOU			// going back to beginning of function 
+DHUND:		CMP    	R2, #100		// Checking if the value is greater than the Divisor to the Third power
+            BLT    	DTEN			// Moving to the next function if Divisor is greater than the remaining value
+            SUB    	R2, #100		// Subtracting the divisor from the remaining value
+            ADD    	R4, #1			// incrementing Hundreds value for each time through the full function
+            B      	DHUND			// going back to beginning of function
+DTEN:       CMP    	R2, #10			// Checking if the value is greater than the Divisor to the Second power
+            BLT    	DIV_END			// Moving to the next function if Divisor is greater than the remaining value
+            SUB    	R2, #10			// Subtracting the divisor from the remaining value
+            ADD    	R3, #1			// incrementing Tens value for each time through the full function
+            B      	DTEN			// going back to beginning of function
+DIV_END:    MOV    	PC, LR
+
+WAIT_RESTART:	LDRB	R4, [R1]
+				CMP		R4, #0
+				BEQ		RESTART
+				B		WAIT_RESTART
+				
+RESTART:		MOV		R0, #0
+				MOV 	R4, #4	//size of an integer, in bytes
+				LDR 	R3, =COLUMN0	//address that the data is being stored in
+				MOV		R1, #1	//data being stored into arrays (to represent the disks)
+				MOV		R2, #1	//iterate value stored in array
+
+BUILDTOWER:		STR		R1, [R3]
+				ADD		R3, R4
+				ADD		R1, R2
+				CMP		R1, #11
+				BLT		BUILDTOWER	
+				MOV		R1, #0
+				
+
+FILLEMPTY:		STR		R0, [R3]
+				ADD		R3, R4
+				ADD		R1, R2
+				CMP		R1, #20
+				BLT		FILLEMPTY
+				B		_start
 			
-		BUTTONS:	.byte	0x0, 0x0
-					.skip   2
+		BUTTONS:	.word	0x0, 0x0
 		COLUMN0:	.word	0x00000001
 					.word 	0x00000002 
 					.word 	0x00000003
@@ -204,7 +293,7 @@ MOVING_EMPTY:	SUB		R8, #4
 					.word 	0
 		PUSH_BUTTON_LOCATION:
 					.word 	0xFF200050
-
+		SCORE:		.byte   0
 
 
 

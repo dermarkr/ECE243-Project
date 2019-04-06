@@ -1,8 +1,10 @@
 #include "stdlib.h"
 
 int tower[10][3];
+volatile int * tower_ptr = (int *) 0x9bc;
 
 void draw();
+void higlight_column();
 
 volatile int pixel_buffer_start; // global variable
 
@@ -96,6 +98,19 @@ void draw_rectangle(int x1, int y1, int width, int height, int colour) {
 	}
 }
 
+void draw_triangle(int x1, int y1, int width, int colour)
+{
+	int x, y;
+	int height = width / 2;
+	
+	x = (width / 2) + x1;
+	
+	for ( y = 0; y < (height); y++)
+	{
+		draw_line((x-y), (y1 - y), (x + y), (y1 - y), colour); 
+	}
+}
+
 //writes all pixels to black
 void clear_screen() {
 	int x = 0;
@@ -130,18 +145,17 @@ void draw()
 	
 	pixel_buffer_start = * pixel_ctrl_ptr;
 	
-	volatile int * tower_ptr = (int *) 0x70c;
-	
 	clear_screen();
 	
 	int i = 0;
 	int j = 0;
 	
 	int peg_width = 3;
-	int disk_height = 6;
+	int disk_height = 12;
 	int peg_height = 160;
 	int width_mult = 4;
 	
+	tower_ptr = (int *) 0x9bc;
 	
 	//draw pegs
 	for(i = 0; i < 3; i++){
@@ -177,6 +191,7 @@ void draw()
 		}
 	}
 	
+	tower_ptr = (int *) 0x9bc;
 	
 	//I think this should work. The problem was that we are just accessing a memory location and don't want to change the values.
 /* 	for(i = 0; i < 30; i++){
@@ -187,9 +202,31 @@ void draw()
 	} */
 }
 
+void higlight_column()
+{
+	tower_ptr = tower_ptr - 2;
+	
+	int width = 30;
+	
+	if(*tower_ptr == 1)
+	{
+		draw_triangle(65, 60, width, 0xFFFFFFFF);
+	}
+	else if(*tower_ptr == 2)
+	{
+		draw_triangle(144, 60, width, 0xFFFFFFFF);
+	}
+	else if(*tower_ptr == 4)
+	{
+		draw_triangle(223, 60, width, 0xFFFFFFFF);
+	}
+	
+}
+
 // code for subroutines (not shown)
 
-int main(void){
+int main(void)
+{
 
 	_start();
 }
