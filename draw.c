@@ -1,12 +1,31 @@
 #include "stdlib.h"
 
-/*
-//code to test to see if it functions:
-extern int tower [10][3];
-*/
-int tower[10][3];
-volatile int * tower_ptr = (int *) 0x9cc;
 
+//code to test to see if it functions:
+//gets the value stored in assembly location COLUMN0
+extern int COLUMN0;
+
+//gets the value stored in assembly location COLUMN1
+extern int COLUMN1;
+
+//gets the value stored in assembly location COLUMN2
+extern int COLUMN2;
+
+//gets the current value of the (FPGA) buttons
+extern int BUTTONS;
+
+//gets the location of COLUMN0
+const int* column0_ptr = &COLUMN0;
+
+//gets the location of COLUMN1
+const int* column1_ptr = &COLUMN1;
+
+//gets the location of COLUMN2
+const int* column2_ptr = &COLUMN2;
+
+int tower[10][3];
+//volatile int * tower_ptr = (int *) 0x9cc;
+//volatile int * column0_ptr = (int *)COLUMN0;
 void draw();
 void higlight_column();
 void setInitialTower();
@@ -144,6 +163,10 @@ void wait_for_vsync(){
 
 void draw()
 {
+	//create a variable that starts at the location of COLUMN0, and use it to iterate through the first column to initialize the C array
+	int* local_tower_ptr;
+	local_tower_ptr = column0_ptr;
+	
     volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
     // declare other variables(not shown)
     // initialize location and direction of rectangles(not shown)
@@ -160,7 +183,6 @@ void draw()
 	int peg_height = 160;
 	int width_mult = 4;
 	
-	tower_ptr = (int *) 0x9cc;
 	
 	//draw pegs
 	for(i = 0; i < 3; i++){
@@ -169,22 +191,29 @@ void draw()
 	
 	//build tower array using RAM locations
 	for(i = 0; i < 10; i++){
-		tower[i][0] = *tower_ptr;
-		tower_ptr += 1;
+
+		//tower[i][0] = *tower_ptr;
+		//tower_ptr += 1;
+		tower[i][0] = *local_tower_ptr;
+		local_tower_ptr += 1;
 	}
 	
+	//set local_tower_ptr to column 1's location
+	local_tower_ptr = column1_ptr;
 	//tower_ptr = (int *) 0x738;
 	
 	for(i = 0; i < 10; i++){
-		tower[i][1] = *tower_ptr;
-		tower_ptr += 1;
+		tower[i][1] = *local_tower_ptr;
+		local_tower_ptr += 1;
 	}
 	
+	//set local_tower_ptr to column 2's location
+	local_tower_ptr = column2_ptr;
 	//tower_ptr = (int *) 0x754;
 	
 	for(i = 0; i < 10; i++){
-		tower[i][2] = *tower_ptr;
-		tower_ptr += 1;
+		tower[i][2] = *local_tower_ptr;
+		local_tower_ptr += 1;
 	}
 	
 	
@@ -196,7 +225,6 @@ void draw()
 		}
 	}
 	
-	tower_ptr = (int *) 0x9cc;
 	
 	//I think this should work. The problem was that we are just accessing a memory location and don't want to change the values.
 /* 	for(i = 0; i < 30; i++){
@@ -207,37 +235,29 @@ void draw()
 	} */
 }
 
+
+//depending on the current value of the buttons, draw an arrow above the corresponding column that has just been selected
 void higlight_column()
 {
-	tower_ptr = tower_ptr - 2;
 	
 	int width = 30;
 	
-	if(*tower_ptr == 1)
+	if(BUTTONS == 1)
 	{
 		draw_triangle(65, 60, width, 0xFFFFFFFF);
 	}
-	else if(*tower_ptr == 2)
+	else if(BUTTONS == 2)
 	{
 		draw_triangle(144, 60, width, 0xFFFFFFFF);
 	}
-	else if(*tower_ptr == 4)
+	else if(BUTTONS == 4)
 	{
 		draw_triangle(223, 60, width, 0xFFFFFFFF);
 	}
 	
 }
 
-/*
-void setInitialTower()
-{
-	int i;
-	for i = 0; i < 10; i++){
-		tower[i][0] = i+1;
-	}
 
-}
-*/
 
 // code for subroutines (not shown)
 

@@ -5,6 +5,10 @@
 		.global _start
 		.extern draw
 		.extern higlight_column
+		.global COLUMN0
+		.global COLUMN1
+		.global COLUMN2
+		.global BUTTONS
 		
 //Arbitrarily decided these addresses I hope they don't do anything
 
