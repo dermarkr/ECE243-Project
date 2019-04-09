@@ -13,8 +13,6 @@
 //Need to draw to game when to program starts		
 
 _start:			BL		draw	
-
-			//BL 		setInitialTower
 				B		DRAW_SCORE
 				
 POLLING_START:	

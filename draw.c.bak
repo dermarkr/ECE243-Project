@@ -9,7 +9,6 @@ volatile int * tower_ptr = (int *) 0x9cc;
 
 void draw();
 void higlight_column();
-void setInitialTower();
 
 volatile int pixel_buffer_start; // global variable
 
@@ -227,17 +226,6 @@ void higlight_column()
 	}
 	
 }
-
-/*
-void setInitialTower()
-{
-	int i;
-	for i = 0; i < 10; i++){
-		tower[i][0] = i+1;
-	}
-
-}
-*/
 
 // code for subroutines (not shown)
 
