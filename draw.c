@@ -12,7 +12,11 @@ extern int COLUMN1;
 extern int COLUMN2;
 
 //gets the current value of the (FPGA) buttons
-extern int BUTTONS;
+extern int BUTTONS;	//may need to be volatile
+
+extern int KB_MAKE_VALUE;
+
+extern int BUTTONS_OFFSET;
 
 //gets the location of COLUMN0
 const int* column0_ptr = &COLUMN0;
@@ -23,11 +27,16 @@ const int* column1_ptr = &COLUMN1;
 //gets the location of COLUMN2
 const int* column2_ptr = &COLUMN2;
 
+const int* button_ptr = &BUTTONS;
+
+//ps2 port address
+volatile int* PS2_ptr = (int *) 0xFF200100;
+
 int tower[10][3];
 //volatile int * tower_ptr = (int *) 0x9cc;
 //volatile int * column0_ptr = (int *)COLUMN0;
 void draw();
-void higlight_column();
+void highlight_column();
 void setInitialTower();
 
 volatile int pixel_buffer_start; // global variable
@@ -237,22 +246,59 @@ void draw()
 
 
 //depending on the current value of the buttons, draw an arrow above the corresponding column that has just been selected
-void higlight_column()
+void highlight_column()
 {
 	
 	int width = 30;
+	int* local_buttons_ptr = button_ptr;
+	int localButtons = *(local_buttons_ptr + BUTTONS_OFFSET);
 	
-	if(BUTTONS == 1)
+	if(KB_MAKE_VALUE == 0x29)
 	{
-		draw_triangle(65, 60, width, 0xFFFFFFFF);
+		if(localButtons == 1)
+		{
+			draw_triangle(65, 60, width, 0xFE00);
+		}
+		else if(localButtons == 2)
+		{
+			draw_triangle(144, 60, width, 0xFE00);
+		}
+		else if(localButtons == 4)
+		{
+			draw_triangle(223, 60, width, 0xFE00);
+		}
 	}
-	else if(BUTTONS == 2)
+	else if (KB_MAKE_VALUE == 0x74)				//check for right arrow key press
 	{
-		draw_triangle(144, 60, width, 0xFFFFFFFF);
+		if(localButtons == 4)
+		{
+			draw_triangle(144, 60, width, 0x00000000);	//draw black triangle over middle
+			draw_triangle(223, 60, width, 0xFFFFFFFF);	//draw white triangle over right hand peg
+			
+		}
+		else if (localButtons == 2)
+		{
+			draw_triangle(65, 60, width, 0x00000000);	//draw black triangle over first peg
+			draw_triangle(144, 60, width, 0xFFFFFFFF);	//draw white triangle over middle
+		}
+			
 	}
-	else if(BUTTONS == 4)
+	else if (KB_MAKE_VALUE == 0x6B)			//check for left arrow key press
 	{
-		draw_triangle(223, 60, width, 0xFFFFFFFF);
+		if(localButtons == 1)
+		{
+			draw_triangle(65, 60, width, 0xFFFFFFFF);	//draw white triangle over first peg
+			draw_triangle(144, 60, width, 0x00000000);	//draw black triangle over middle	
+		}
+		else if (localButtons == 2)
+		{	
+			draw_triangle(144, 60, width, 0xFFFFFFFF);	//draw white triangle over middle
+			draw_triangle(223, 60, width, 0x00000000);	//draw black triangle over right hand peg
+		}
+	}
+	else if (localButtons == 1)
+	{
+		draw_triangle(65, 60, width, 0xFFFFFFFF);	//draw white triangle over first peg
 	}
 	
 }
