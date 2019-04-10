@@ -11,6 +11,7 @@
 		.global BUTTONS
 		.global KB_MAKE_VALUE
 		.global BUTTONS_OFFSET
+		.global	FROM_COL
 //Arbitrarily decided these addresses I hope they don't do anything
 
 
@@ -18,52 +19,82 @@
 //Need to draw to game when to program starts		
 
 _start:			BL		draw	
-				BL		GET_KEYBOARD
+				//BL		GET_KEYBOARD
+				BL		SETUP_KB
 			//BL 		setInitialTower
 				B		DRAW_SCORE
 				
+SETUP_KB:		LDR R0, =PS2_LOCATION
+				LDR R0, [R0]
+				LDR R1, =0xF3
+				STR R1, [R0]
+				LDR R1, [R0]			//grabs the controller's acknowledge
+				LDR R1, =0b1100000
+				STR R1, [R0]
+				LDR R1, [R0]			//grabs the controller's second acknowledge
+				BX LR
 //the following subroutine gets the value of the keyboard make code into KB_MAKE_VALUE
 GET_KEYBOARD:	
 				//the following two lines gets the current value of the PS2 input into R0
 				//PUSH 	{R0, R1, R2, R3}
 				LDR		R0, =PS2_LOCATION
 				LDR 	R0, [R0]
-				LDR 	R0, [R0]
-				
+				//LDR 	R1, =0xF5
+				//STR		R1, [R0]
+				//LDR 	R1, =0xF4
+				//STR		R1, [R0]
+				//LDR 	R1, [R0]
+				LDR		R1, [R0]
+				LDR		R5, [R0]
+				LDR		R5, [R0]
 				//sets R1 to be the valid bit within the PS/2 input
-				MOV 	R1,	R0
+				//MOV 	R1,	R0
+				MOV 	R0, R1
 				AND		R1, #0x8000
-				CMP R1, #0
-				MOVNE 	R2, R0
-				BEQ 	GET_KEYBOARD
+				CMP 	R1, #0x8000
+				MOVEQ 	R2, R0
+				BNE 	GET_KEYBOARD
 				LDR 	R4, =AND_CONST
 				LDR 	R4, [R4]
 				AND 	R2, R4
+				CMP 	R2, #0xFA
+				BEQ GET_KEYBOARD
 				LDR 	R3, =KB_MAKE_VALUE
 				STR 	R2, [R3]
 				//POP 	{R0, R1, R2, R3}
 				BX 		LR
 	
-MOVE_RIGHT:		//PUSH {something}	//maybe push something if needed
+MOVE_RIGHT:		PUSH {LR}	//maybe push something if needed
 				
 				CMP 	R5, #1	//compare the current value of the selected
 									//column to the number 2 if 
 				ADDEQ	R5, #1	//add 1 to 	R5 if it was 1 before the right key was pressed
-				
-				CMPNE	R5, #2
+				BEQ HIGHLIGHT_R
+				CMP	R5, #2
 				ADDEQ	R5, #2	//add 2 to R5 if it was 2 before the right arrow key was pressed
+HIGHLIGHT_R:	LDR 	R0, =BUTTONS
+				LDR		R1, =BUTTONS_OFFSET
+				LDR		R1, [R1]
+				STR		R5, [R0 , R1]
 				BL highlight_column
+				POP {LR}
 				BX LR
 
-MOVE_LEFT:		//PUSH {something}	//maybe, if needed
+MOVE_LEFT:		PUSH {LR}	//maybe, if needed
 				
 				CMP 	R5, #4	//compare the current value of the selected
 									//column to the number 2 if 
 				SUBEQ 	R5, #2	//subtract 2 from R5 if it was 4 before the left arrow key was pressed
-				
-				CMPNE	R5, #2
+				BEQ		HIGHLIGHT_L
+				CMP		R5, #2
 				SUBEQ 	R5, #1	//subtract 1 from R5 if it was 2 before the left arrow key was pressed
+HIGHLIGHT_L:	
+				LDR 	R0, =BUTTONS				
+				LDR		R1, =BUTTONS_OFFSET
+				LDR		R1, [R1]
+				STR		R5, [R0, R1]
 				BL highlight_column
+				POP {LR}
 				BX LR
 
 POLLING_START:	
@@ -71,6 +102,7 @@ POLLING_START:
 				LDR 	R0, =BUTTONS_OFFSET
 				MOV 	R1, #0
 				STR 	R1, [R0]
+				BL highlight_column
 				LDR		R0, =BUTTONS		//assigns the location the PB presses are stored		
 				LDR		R1, =PUSH_BUTTON_LOCATION		//PB press location
 				LDR 	R1, [R1]
@@ -85,6 +117,9 @@ POLLING_START:
 //				B		WAITPOLLC1		//goes to check for second press
 				
 POLLC1:			BL 		GET_KEYBOARD
+				
+				LDR R0, =BUTTONS
+				
 				LDR 	R3, [R0]
 				LDR		R1, =KB_MAKE_VALUE
 
@@ -95,21 +130,30 @@ POLLC1:			BL 		GET_KEYBOARD
 					//column to select
 				LDR 	R5, =BUTTONS
 				LDR 	R5, [R5]	
-				CMP		R2, #0xE0		//Checks if right arrow key pressed
+				CMP		R2, #0x23		//Checks if right arrow key pressed
 				BLEQ 	MOVE_RIGHT
-				CMP 	R2, #0x6B
+				CMP 	R2, #0x1C
 				BLEQ	MOVE_LEFT
 				CMP		R2, #0x2d //checks if the R key was pressed (for reset)
 				BEQ		RESTART
 				CMP 	R2, #0x29		
 				BNE		POLLC1		//if the spacebar wasn't pressed, get the next pressed value of the keyboard
+				
 				STR		R5, [R0]	//if spacebar was pressed, store the current value of the first column
+				LDR		R0, =FROM_COL
+				STR		R5, [R0]	//stores the value of R5 into the FROM_COL variable location
 				BL		highlight_column
 				B		PREPOLLC2
 				//B		WAITPOLLC1		//goes to check for second press
 				
-WAITPOLLC1:		LDRB	R4, [R1]
-				CMP		R4, #0
+WAITPOLLC1:		LDR		R1, =PS2_LOCATION
+				LDR		R1, [R1]
+				LDR		R2, [R1]
+				LDRB	R4, [R1]
+				AND		R2, #0x8000
+				CMP		R2, #1
+				//CMPEQ	R4, #0
+				CMPEQ	R4, #0xFA
 				BEQ		PREPOLLC2
 				B		WAITPOLLC1
 
@@ -136,19 +180,23 @@ PREPOLLC2:
 //				B		WAITPOLLC2		//goes to logic functions
 				
 POLLC2:			BL 		GET_KEYBOARD
+					
+				LDR		R0, =BUTTONS
+				
 				LDR		R1, =KB_MAKE_VALUE	//Loads PB values
 				LDR		R2, [R1]
 				LDR 	R5, =BUTTONS
 				LDR 	R5, [R5, #1]	
-				CMP		R2, #0xE0		//Checks if right arrow key pressed
+				CMP		R2, #0x23		//Checks if right arrow key pressed
 				BLEQ 	MOVE_RIGHT
-				CMP 	R2, #0x6B
+				CMP 	R2, #0x1C
 				BLEQ	MOVE_LEFT
 				CMP		R2, #0x2d //checks if the R key was pressed (for reset)
 				BEQ		RESTART
 				CMP 	R2, #0x29		
 				BNE		POLLC2		//if the spacebar wasn't pressed, get the next pressed value of the keyboard
 				STR		R5, [R0, #1]	//if spacebar was pressed, store the current value of the first column
+				BL 		highlight_column
 				LDR 	R4, [R0]
 				
 //check to see if the starting and destination columns are the same, if so, go to INVALID				
@@ -157,13 +205,19 @@ POLLC2:			BL 		GET_KEYBOARD
 				
 				B		LOGIC_START		//goes to logic functions
 				
-WAITPOLLC2:		LDRB	R4, [R1]
-				CMP		R4, #0
+WAITPOLLC2:		LDR		R1, =PS2_LOCATION
+				LDR		R1, [R1]
+				LDR		R2, [R1]
+				LDRB	R4, [R1]
+				AND		R2, #0x8000
+				CMP		R2, #1
+				//CMPEQ	R4, #0
+				CMPEQ	R4, #0xFA
 				BEQ		LOGIC_START
 				B		WAITPOLLC2
 			
 			//Logic function written assuming max disk count is 10
-INVALID:		LDR 	R4, #1
+INVALID:		LDR 	R4, =1
 				STR 	R4, [R0]
 				STR		R4, [R0, #1]
 				//reset the values of the two columns selected
@@ -171,7 +225,9 @@ INVALID:		LDR 	R4, #1
 
 LOGIC_START:	
 				//MOV		R10, #160
-
+				LDR 	R2, =BUTTONS
+				LDR		R3,	[R2, #1]
+				LDR		R2, [R2]
 				CMP		R2, #0b0001		//assigns R2 to the key number by checking value against masks
 				MOVEQ	R2, #0
 				CMP		R2, #0b0010
@@ -404,6 +460,7 @@ FILLEMPTY:		STR		R0, [R3]
 		//the value of AND_CONST may need to be 0xff to account for the 16 bit make codes from the ps2 keyboard
 		AND_CONST:	.word 	0xff
 	BUTTONS_OFFSET:	.word 	0x0
+	FROM_COL:		.word	0x0
 	PS2_LOCATION:	.word 	0xFF200100
 		BUTTONS:	.word	0x1, 0x1
 		COLUMN0:	.word	0x00000001

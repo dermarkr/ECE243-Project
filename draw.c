@@ -11,6 +11,9 @@ extern int COLUMN1;
 //gets the value stored in assembly location COLUMN2
 extern int COLUMN2;
 
+//value of the column to move a disk from
+extern int FROM_COL;
+
 //gets the current value of the (FPGA) buttons
 extern int BUTTONS;	//may need to be volatile
 
@@ -248,11 +251,37 @@ void draw()
 //depending on the current value of the buttons, draw an arrow above the corresponding column that has just been selected
 void highlight_column()
 {
-	
+	draw_rectangle(0, 30, 319, 70, 0x00000000);
 	int width = 30;
 	int* local_buttons_ptr = button_ptr;
 	int localButtons = *(local_buttons_ptr + BUTTONS_OFFSET);
+
+	if(localButtons == 1)
+	{
+		draw_triangle(65, 60, width, 0xFFFF);
+	}
+	else if(localButtons == 2)
+	{
+		draw_triangle(144, 60, width, 0xFFFF);
+	}
+	else if(localButtons == 4)
+	{
+		draw_triangle(223, 60, width, 0xFFFF);
+	}
 	
+	if(FROM_COL == 1)
+	{
+		draw_triangle(65, 60, width, 0xF00);
+	}
+	else if(FROM_COL == 2)
+	{
+		draw_triangle(144, 60, width, 0xF00);
+	}
+	else if(FROM_COL == 4)
+	{
+		draw_triangle(223, 60, width, 0xF00);
+	}
+	/*
 	if(KB_MAKE_VALUE == 0x29)
 	{
 		if(localButtons == 1)
@@ -268,7 +297,7 @@ void highlight_column()
 			draw_triangle(223, 60, width, 0xFE00);
 		}
 	}
-	else if (KB_MAKE_VALUE == 0x74)				//check for right arrow key press
+	else if (KB_MAKE_VALUE == 0xFA)				//check for right arrow key press
 	{
 		if(localButtons == 4)
 		{
@@ -300,6 +329,7 @@ void highlight_column()
 	{
 		draw_triangle(65, 60, width, 0xFFFFFFFF);	//draw white triangle over first peg
 	}
+	*/
 	
 }
 
